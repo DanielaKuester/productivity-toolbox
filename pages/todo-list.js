@@ -3,20 +3,39 @@ import Task from "@/components/Task";
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
+    const [todoKey, setTodoKey] = useState("");
 
     const todoList = [
-        "Experiment with Tailwind CSS",
-        "Read the basics of the Tailwind CSS documentation",
-        "Read the basics of the Next.js documentation",
-        "Add an input field with a button: allow users to add to-do items to an array with objects",
-        "Add checkboxes to check off tasks that are done (text: line-through)",
-        "Add buttons next to each task: edit task, delete task",
+        {   "key": 0,
+            "taskText": "Experiment with Tailwind CSS."
+        },
+        {
+            "key": 1,
+            "taskText": "Read stuff about Next.js."
+        },
+        {
+            "key": 2,
+            "taskText": "Learn more about React components."
+        },
+        {
+            "key": 3,
+            "taskText": "Upgrade my app building experience."
+        }
     ]
+
+    const todoListItems = todoList.map(
+        (todoListItem, index) => {
+            return (
+                <Task key={index} text={todoListItem.taskText} />
+            )
+        }
+    )
 
     const handleChange = (e) => {
         setTodo(e.target.value);
     }
     const handleSubmit = (e) => {
+        todoListItems.push({todo});
         console.log(todo);
         e.preventDefault();
     }
@@ -43,12 +62,7 @@ export default function TodoList() {
                 </button>
             </form>
             <ul className="list-decimal container mx-auto box-border rounded-xl shadow-2xl h-auto w-1/2 p-4 px-10 bg-opacity-20 bg-gray-700 flex flex-col text-left text-2xl text-white">
-                <Task text={todoList[0]} />
-                <Task text={todoList[1]} />
-                <Task text={todoList[2]} />
-                <Task text={todoList[3]} />
-                <Task text={todoList[4]} />
-                <Task text={todoList[5]} />
+                {todoListItems}
             </ul>
         </div>        
     )
