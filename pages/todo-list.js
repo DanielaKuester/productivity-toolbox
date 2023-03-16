@@ -1,41 +1,21 @@
 import { useState } from "react";
 import Task from "@/components/Task";
 
+let todoKey = 0;
+
 export default function TodoList() {
     const [todo, setTodo] = useState("");
-    const [todoKey, setTodoKey] = useState("");
-
-    const todoList = [
-        {   "key": 0,
-            "taskText": "Experiment with Tailwind CSS."
-        },
-        {
-            "key": 1,
-            "taskText": "Read stuff about Next.js."
-        },
-        {
-            "key": 2,
-            "taskText": "Learn more about React components."
-        },
-        {
-            "key": 3,
-            "taskText": "Upgrade my app building experience."
-        }
-    ]
-
-    const todoListItems = todoList.map(
-        (todoListItem, index) => {
-            return (
-                <Task key={index} text={todoListItem.taskText} />
-            )
-        }
-    )
+    const [todoList, setTodoList] = useState([]);
 
     const handleChange = (e) => {
         setTodo(e.target.value);
     }
+
     const handleSubmit = (e) => {
-        todoListItems.push({todo});
+        setTodoList([
+            ...todoList,
+            { "key": todoKey++, "taskText": todo}
+        ]);
         console.log(todo);
         e.preventDefault();
     }
@@ -62,7 +42,9 @@ export default function TodoList() {
                 </button>
             </form>
             <ul className="list-decimal container mx-auto box-border rounded-xl shadow-2xl h-auto w-1/2 p-4 px-10 bg-opacity-20 bg-gray-700 flex flex-col text-left text-2xl text-white">
-                {todoListItems}
+                {todoList.map(todoElement => (
+                    <li className="p-1" key={todoElement.key}>{todoElement.taskText}</li>
+                ))}
             </ul>
         </div>        
     )
