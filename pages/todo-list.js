@@ -41,7 +41,12 @@ export default function TodoList() {
                     Submit
                 </button>
             </form>
-            <ul className="list-decimal container mx-auto box-border rounded-xl shadow-2xl h-auto w-1/2 p-4 px-10 bg-opacity-20 bg-gray-700 flex flex-col text-left text-2xl text-white">
+            <ul className="list-decimal container mx-auto box-border rounded-xl
+                h-auto w-1/2 p-4 px-10
+                shadow-2xl
+                bg-gray-700 bg-opacity-20
+                text-left text-2xl text-white
+                empty:invisible">
                 {todoList.map(todoElement => (
                     <li className="p-1" key={todoElement.key}>{todoElement.taskText}</li>
                 ))}
