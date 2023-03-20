@@ -12,12 +12,12 @@ export default function TodoList() {
     }
 
     const handleSubmit = (e) => {
+        e.preventDefault();
         setTodoList([
             ...todoList,
             { "key": todoKey++, "taskText": todo}
         ]);
-        console.log(todo);
-        e.preventDefault();
+        setTodo("");
     }
 
     return(
