@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Task from "@/components/Task";
 
 let todoKey = 0;
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
+    const [hidden, setHidden] = useState(true);
 
     const handleChange = (e) => {
         setTodo(e.target.value);
@@ -41,16 +41,20 @@ export default function TodoList() {
                     Submit
                 </button>
             </form>
-            <ul className="list-decimal container mx-auto box-border rounded-xl
-                h-auto w-1/2 p-4 px-10
-                shadow-2xl
-                bg-gray-700 bg-opacity-20
-                text-left text-2xl text-white
-                empty:invisible">
-                {todoList.map(todoElement => (
-                    <li className="p-1" key={todoElement.key}>{todoElement.taskText}</li>
-                ))}
-            </ul>
+            <div className={`container mx-auto box-border rounded-xl h-auto w-1/2 p-4 px-10 shadow-2xl
+                bg-gray-700 bg-opacity-20 text-left text-2xl text-white`}>
+                    <p className="pb-3">Enter a task and your to-do-list will appear here.</p>
+                <table>
+                    <tbody>
+                        {todoList.map((row, index) => (
+                            <tr key={index}>
+                                <td className="pr-3">{`${index + 1}.`}</td>
+                                <td className="p-1">{row.taskText}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>        
     )
 }
