@@ -50,6 +50,22 @@ export default function TodoList() {
                             <tr key={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
                                 <td className="p-1">{row.taskText}</td>
+                                <td>
+                                    <button type="button"
+                                        className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10">
+                                        Edit
+                                    </button>
+                                </td>
+                                <td>
+                                    <button type="button"
+                                        className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10">
+                                        Delete
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
