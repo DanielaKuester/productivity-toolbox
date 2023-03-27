@@ -47,14 +47,14 @@ export default function TodoList() {
                 <table>
                     <tbody>
                         {todoList.map((row, index) => (
-                            <tr key={index}>
+                            <tr className="group" key={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
                                 <td className="p-1">{row.taskText}</td>
                                 <td>
                                     <button type="button"
                                         className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10">
+                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
                                         Edit
                                     </button>
                                 </td>
@@ -62,7 +62,7 @@ export default function TodoList() {
                                     <button type="button"
                                         className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10">
+                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
                                         Delete
                                     </button>
                                 </td>
