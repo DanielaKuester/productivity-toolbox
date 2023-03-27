@@ -21,7 +21,7 @@ export default function TodoList() {
     }
 
     return(
-        <div className="h-screen bg-gradient-to-br from-green-300 via-blue-400 to-purple-500">
+        <div className="min-h-screen bg-gradient-to-br from-green-300 via-blue-400 to-purple-500">
             <h1 className="text-3xl p-8 font-bold text-white text-center">
                 My To-Do-List
             </h1>
