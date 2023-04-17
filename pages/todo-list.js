@@ -20,6 +20,17 @@ export default function TodoList() {
         setTodo("");
     }
 
+    /*
+     * Code for the delete function taken from https://stackoverflow.com/questions/29527385/removing-element-from-array-in-component-state
+     * The function filters through the (soon old) task list and only gives back an item if it doesn't match the index of the clicked item.
+     * _ represents an unused argument: Here, it is the current item in the array.
+     */
+    const deleteTask = (index) => {
+        setTodoList(oldList => {
+            return oldList.filter((_, i) => i !== index)
+        })
+    }
+
     return(
         <div className="min-h-screen bg-gradient-to-br from-green-300 via-blue-400 to-purple-500">
             <h1 className="text-3xl p-8 font-bold text-white text-center">
@@ -59,7 +70,9 @@ export default function TodoList() {
                                     </button>
                                 </td>
                                 <td>
-                                    <button type="button"
+                                    <button
+                                        onClick={() => deleteTask(index)}
+                                        type="button"
                                         className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
                                         font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
