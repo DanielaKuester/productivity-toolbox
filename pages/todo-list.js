@@ -11,7 +11,7 @@ export default function TodoList() {
         setTodo(e.target.value);
     }
 
-    const handleSubmit = (e) => {
+    const addTask = (e) => {
         e.preventDefault();
         setTodoList([
             ...todoList,
@@ -36,7 +36,7 @@ export default function TodoList() {
             <h1 className="text-3xl p-8 font-bold text-white text-center">
                 My To-Do-List
             </h1>
-            <form onSubmit={handleSubmit} className="container flex mx-auto w-1/2">
+            <form onSubmit={addTask} className="container flex mx-auto w-1/2">
                 <input
                     className="mb-10 ml-3 pl-2 h-10 w-full text-black text-2xl"
                     type="text"
