@@ -5,8 +5,10 @@ let todoKey = 0;
 export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
+    const [task, setTask] = useState("");
     const [hidden, setHidden] = useState(true);
 
+    // Enter text into the input field and click the button to add a new task
     const handleChange = (e) => {
         setTodo(e.target.value);
     }
@@ -20,7 +22,21 @@ export default function TodoList() {
         setTodo("");
     }
 
+    // Enter text into the editing input field and click the button to edit a task
+    const handleEditChange = (e) => {
+        setTask(e.target.value);
+    }
+
+    const editTask = (e) => {
+        e.preventDefault();
+        setTask(task);
+        e.target.parentNode.previousElementSibling.innerText = task;
+        setTask("");
+    }
+
     /*
+     * Delete a task
+     * 
      * Code for the delete function taken from https://stackoverflow.com/questions/29527385/removing-element-from-array-in-component-state
      * The function filters through the (soon old) task list and only gives back an item if it doesn't match the index of the clicked item.
      * _ represents an unused argument: Here, it is the current item in the array.
@@ -61,13 +77,25 @@ export default function TodoList() {
                             <tr className="group" key={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
                                 <td className="p-1">{row.taskText}</td>
-                                <td>
-                                    <button type="button"
-                                        className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
-                                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
-                                        Edit
-                                    </button>
+                                <td className="p-1">
+                                    <form
+                                        className="container flex"
+                                        onSubmit={editTask}>
+                                        <input
+                                                className="ml-3 pl-2 h-10 w-full text-black text-2xl invisible group-hover:visible"
+                                                type="text"
+                                                name="newtodo"
+                                                placeholder="Edit current task."
+                                                value={task}
+                                                onChange={handleEditChange}
+                                        />
+                                        <button type="submit"
+                                            className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
+                                            Edit
+                                        </button>
+                                    </form>
                                 </td>
                                 <td>
                                     <button
