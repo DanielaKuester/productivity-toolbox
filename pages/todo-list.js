@@ -29,9 +29,16 @@ export default function TodoList() {
 
     const editTask = (e) => {
         e.preventDefault();
-        setTask(task);
-        const editedTodoList = [...todoList];
-        editedTodoList[e.target.getAttribute("inputid")].taskText = task;
+        setTask(task);     
+        const editedTodoList = todoList.map((listItem, i) => {
+            if (parseInt(e.target.getAttribute("data-inputid")) === i) {
+                listItem.taskText = task;
+                return listItem;
+            } else {
+                return listItem;
+            }
+        });
+        setTodoList(editedTodoList);
         setTask("");
     }
 
@@ -80,7 +87,7 @@ export default function TodoList() {
                                 <td className="p-1">{row.taskText}</td>
                                 <td className="p-1">
                                     <form
-                                        inputid={index}
+                                        data-inputid={index}
                                         className="container flex"
                                         onSubmit={editTask}>
                                         <input
