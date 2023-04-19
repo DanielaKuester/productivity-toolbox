@@ -68,7 +68,7 @@ export default function TodoList() {
                     Submit
                 </button>
             </form>
-            <div className={`container mx-auto box-border rounded-xl h-auto w-1/2 p-4 px-10 shadow-2xl
+            <div className={`container mx-auto box-border rounded-xl h-auto w-4/5 p-4 px-10 shadow-2xl
                 bg-gray-700 bg-opacity-20 text-left text-2xl text-white`}>
                     <p className="pb-3">Enter a task and your to-do-list will appear here.</p>
                 <table>
