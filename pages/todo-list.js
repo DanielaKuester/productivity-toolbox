@@ -30,7 +30,8 @@ export default function TodoList() {
     const editTask = (e) => {
         e.preventDefault();
         setTask(task);
-        e.target.parentNode.previousElementSibling.innerText = task;
+        const editedTodoList = [...todoList];
+        editedTodoList[e.target.getAttribute("inputid")].taskText = task;
         setTask("");
     }
 
@@ -79,6 +80,7 @@ export default function TodoList() {
                                 <td className="p-1">{row.taskText}</td>
                                 <td className="p-1">
                                     <form
+                                        inputid={index}
                                         className="container flex"
                                         onSubmit={editTask}>
                                         <input
@@ -89,7 +91,8 @@ export default function TodoList() {
                                                 value={task}
                                                 onChange={handleEditChange}
                                         />
-                                        <button type="submit"
+                                        <button
+                                            type="submit"
                                             className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
                                             font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
