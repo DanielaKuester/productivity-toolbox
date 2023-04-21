@@ -22,7 +22,6 @@ export default function TodoList() {
         setTodo("");
     }
 
-    // Enter text into the editing input field and click the button to edit a task
     const handleEditChange = (e) => {
         setTask(e.target.value);
     }
@@ -60,7 +59,7 @@ export default function TodoList() {
             <h1 className="text-3xl p-8 font-bold text-white text-center">
                 My To-Do-List
             </h1>
-            <form onSubmit={addTask} className="container flex mx-auto w-1/2">
+            <form onSubmit={addTask} className="container flex mx-auto sd:w-full xl:w-1/2">
                 <input
                     className="mb-10 ml-3 pl-2 h-10 w-full text-black text-2xl"
                     type="text"
@@ -76,25 +75,25 @@ export default function TodoList() {
                     Submit
                 </button>
             </form>
-            <div className={`container mx-auto box-border rounded-xl h-auto w-4/5 p-4 px-10 shadow-2xl
+            <div className={`container mx-auto box-border rounded-xl h-auto sd:w-full xl:w-1/2 p-4 px-10 shadow-2xl
                 bg-gray-700 bg-opacity-20 text-left text-2xl text-white`}>
                     <p className="pb-3">Enter a task and your to-do-list will appear here.</p>
                 <table>
                     <tbody>
                         {todoList.map((row, index) => (
-                            <tr className="group" key={index}>
+                            <tr className="group w-full" key={index} data-rowid={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
-                                <td className="p-1">{row.taskText}</td>
+                                <td className="p-1 group-hover:hidden w-full">{row.taskText}</td>
                                 <td className="p-1">
                                     <form
                                         data-inputid={index}
                                         className="container flex"
                                         onSubmit={editTask}>
                                         <input
-                                                className="ml-3 pl-2 h-10 w-full text-black text-2xl invisible group-hover:visible"
+                                                className="pl-2 h-10 w-full text-black text-2xl hidden group-hover:block"
                                                 type="text"
                                                 name="newtodo"
-                                                placeholder="Edit current task."
+                                                placeholder={row.taskText}
                                                 value={task}
                                                 onChange={handleEditChange}
                                         />
@@ -102,7 +101,7 @@ export default function TodoList() {
                                             type="submit"
                                             className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
+                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 hidden group-hover:block">
                                             Edit
                                         </button>
                                     </form>
@@ -113,7 +112,7 @@ export default function TodoList() {
                                         type="button"
                                         className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 invisible group-hover:visible">
+                                        font-medium rounded-lg text-2xl px-5 py-1 text-center mb-2 h-10 hidden group-hover:block">
                                         Delete
                                     </button>
                                 </td>
