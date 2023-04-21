@@ -83,7 +83,7 @@ export default function TodoList() {
                         {todoList.map((row, index) => (
                             <tr className="group w-full" key={index} data-rowid={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
-                                <td className="p-1 group-hover:hidden w-full">{row.taskText}</td>
+                                <td className="p-3 group-hover:hidden w-full">{row.taskText}</td>
                                 <td className="p-1">
                                     <form
                                         data-inputid={index}
