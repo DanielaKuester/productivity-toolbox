@@ -1,5 +1,4 @@
 import { useState } from "react";
-import classNames from "classnames";
 
 let todoKey = 0;
 
@@ -7,10 +6,8 @@ export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [task, setTask] = useState("");
-    const [hidden, setHidden] = useState(false);
-    let myClassName = classNames({hidden});
 
-    // Enter text into the input field and click the button to add a new task
+    // Enter text into the input field and click the button to add a new task.
     const handleChange = (e) => {
         setTodo(e.target.value);
     }
@@ -19,26 +16,36 @@ export default function TodoList() {
         e.preventDefault();
         setTodoList([
             ...todoList,
-            { "key": todoKey++, "taskText": todo}
+            { "key": todoKey++, "taskText": todo, "textHidden": false, "inputHidden": true}
         ]);
         setTodo("");
     }
 
-    const handleEditChange = (e) => {
-        setTask(e.target.value);
-    }
 
+    // Double click a task to edit it.
     const handleDoubleClick = (e) => {
         const taskID = e.target.getAttribute("data-taskid");
-        const inputID = e.target.nextSibling.firstChild.getAttribute("data-inputid");
-        console.log(myClassName);
-        if (taskID === inputID) {
-            setHidden(true);
-            console.log("These two values match!");
-            console.log(e.target.className);
-        } else {
-            console.log("Sorry! There's no match! :-(");
-        }
+        //const inputID = e.target.nextSibling.firstChild.getAttribute("data-inputid");
+
+        /* 
+         * Map through the list. If the taskID of the clicked item matches the index of the item in the mapped array,
+         * the item's value of textHidden and inputHidden changes to show/hide the task text or the input field.
+         */
+
+        const filteredTodoList = todoList.map((item, i) => {
+            if (parseInt(taskID) === i) {
+                item.textHidden = true;
+                item.inputHidden = false;
+                return item;
+            } else {
+                return item;
+            }
+        });
+        setTodoList(filteredTodoList);
+    }
+
+    const handleEditChange = (e) => {
+        setTask(e.target.value);
     }
 
     const editTask = (e) => {
@@ -47,13 +54,14 @@ export default function TodoList() {
         const editedTodoList = todoList.map((listItem, i) => {
             if (parseInt(e.target.getAttribute("data-inputid")) === i) {
                 listItem.taskText = task;
+                listItem.textHidden = false;
+                listItem.inputHidden = true;
                 return listItem;
             } else {
                 return listItem;
             }
         });
         setTodoList(editedTodoList);
-        setHidden(false);
         setTask("");
     }
 
@@ -100,14 +108,14 @@ export default function TodoList() {
                             <tr className="group w-full" key={index} data-rowid={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
                                 <td onDoubleClick={handleDoubleClick}
-                                    className={`p-3 w-full ${myClassName}`}
+                                    className={`p-3 w-full ${(row.textHidden ? "hidden" : "")}`}
                                     data-taskid={index}>
                                     {row.taskText}
                                 </td>
                                 <td className="p-1">
                                     <form
                                         data-inputid={index}
-                                        className="container flex"
+                                        className={`container flex ${(row.inputHidden ? "hidden" : "")}`}
                                         onSubmit={editTask}>
                                         <input
                                                 className="pl-2 h-10 w-full text-black text-2xl"
