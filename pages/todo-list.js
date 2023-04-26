@@ -1,6 +1,6 @@
 import { useState } from "react";
+import classNames from "classnames";
 
-let classNames = require("classnames");
 let todoKey = 0;
 
 export default function TodoList() {
@@ -8,6 +8,7 @@ export default function TodoList() {
     const [todoList, setTodoList] = useState([]);
     const [task, setTask] = useState("");
     const [hidden, setHidden] = useState(false);
+    let myClassName = classNames({hidden});
 
     // Enter text into the input field and click the button to add a new task
     const handleChange = (e) => {
@@ -30,16 +31,19 @@ export default function TodoList() {
     const handleDoubleClick = (e) => {
         const taskID = e.target.getAttribute("data-taskid");
         const inputID = e.target.nextSibling.firstChild.getAttribute("data-inputid");
+        console.log(myClassName);
         if (taskID === inputID) {
-            console.log("These two values match!")
+            setHidden(true);
+            console.log("These two values match!");
+            console.log(e.target.className);
         } else {
-            console.log("Sorry! There's no match! :-(")
+            console.log("Sorry! There's no match! :-(");
         }
     }
 
     const editTask = (e) => {
         e.preventDefault();
-        setTask(task);     
+        setTask(task);
         const editedTodoList = todoList.map((listItem, i) => {
             if (parseInt(e.target.getAttribute("data-inputid")) === i) {
                 listItem.taskText = task;
@@ -49,6 +53,7 @@ export default function TodoList() {
             }
         });
         setTodoList(editedTodoList);
+        setHidden(false);
         setTask("");
     }
 
@@ -95,7 +100,7 @@ export default function TodoList() {
                             <tr className="group w-full" key={index} data-rowid={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
                                 <td onDoubleClick={handleDoubleClick}
-                                    className={"p-3 w-full"}
+                                    className={`p-3 w-full ${myClassName}`}
                                     data-taskid={index}>
                                     {row.taskText}
                                 </td>
