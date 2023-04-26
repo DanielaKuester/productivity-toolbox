@@ -1,12 +1,13 @@
 import { useState } from "react";
 
+const classNames = require("classnames");
 let todoKey = 0;
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [task, setTask] = useState("");
-    const [hidden, setHidden] = useState(true);
+    const [hidden, setHidden] = useState(false);
 
     // Enter text into the input field and click the button to add a new task
     const handleChange = (e) => {
@@ -24,6 +25,14 @@ export default function TodoList() {
 
     const handleEditChange = (e) => {
         setTask(e.target.value);
+    }
+
+    const handleDoubleClick = (e) => {
+        if (e.target.getAttribute("data-taskid") === e.target.nextSibling.firstChild.getAttribute("data-inputid")) {
+            console.log("These two values match!")
+        } else {
+            console.log("Sorry! There's no match! :-(")
+        }
     }
 
     const editTask = (e) => {
@@ -83,14 +92,18 @@ export default function TodoList() {
                         {todoList.map((row, index) => (
                             <tr className="group w-full" key={index} data-rowid={index}>
                                 <td className="pr-3">{`${index + 1}.`}</td>
-                                <td className="p-3 group-hover:hidden w-full">{row.taskText}</td>
+                                <td onDoubleClick={handleDoubleClick}
+                                    className={"p-3 w-full"}
+                                    data-taskid={index}>
+                                    {row.taskText}
+                                </td>
                                 <td className="p-1">
                                     <form
                                         data-inputid={index}
                                         className="container flex"
                                         onSubmit={editTask}>
                                         <input
-                                                className="pl-2 h-10 w-full text-black text-2xl hidden group-hover:block"
+                                                className="pl-2 h-10 w-full text-black text-2xl"
                                                 type="text"
                                                 name="newtodo"
                                                 placeholder={row.taskText}
@@ -101,7 +114,7 @@ export default function TodoList() {
                                             type="submit"
                                             className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10 hidden group-hover:block">
+                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10">
                                             Edit
                                         </button>
                                     </form>
