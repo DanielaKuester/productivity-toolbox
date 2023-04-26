@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const classNames = require("classnames");
+let classNames = require("classnames");
 let todoKey = 0;
 
 export default function TodoList() {
@@ -28,7 +28,9 @@ export default function TodoList() {
     }
 
     const handleDoubleClick = (e) => {
-        if (e.target.getAttribute("data-taskid") === e.target.nextSibling.firstChild.getAttribute("data-inputid")) {
+        const taskID = e.target.getAttribute("data-taskid");
+        const inputID = e.target.nextSibling.firstChild.getAttribute("data-inputid");
+        if (taskID === inputID) {
             console.log("These two values match!")
         } else {
             console.log("Sorry! There's no match! :-(")
