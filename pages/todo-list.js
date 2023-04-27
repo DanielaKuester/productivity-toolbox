@@ -6,6 +6,7 @@ export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [task, setTask] = useState("");
+    const [editingTest, setEditingTest] = useState([]);
 
     // Enter text into the input field and click the button to add a new task.
     const handleChange = (e) => {
@@ -33,7 +34,9 @@ export default function TodoList() {
          */
 
         const filteredTodoList = todoList.map((item, i) => {
-            if (parseInt(taskID) === i) {
+            // The editingTest array makes sure that the user can only edit exactly one task at a time.
+            if ((parseInt(taskID) === i) && (editingTest.length === 0)) {
+                setEditingTest(["This string only exists to test if the user already selected a task to edit it."]);
                 item.textHidden = true;
                 item.inputHidden = false;
                 return item;
@@ -63,6 +66,7 @@ export default function TodoList() {
         });
         setTodoList(editedTodoList);
         setTask("");
+        setEditingTest([]);
     }
 
     /*
