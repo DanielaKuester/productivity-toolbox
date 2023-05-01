@@ -17,7 +17,7 @@ export default function TodoList() {
         e.preventDefault();
         setTodoList([
             ...todoList,
-            { "key": todoKey++, "taskText": todo, "textHidden": false, "inputHidden": true}
+            { "key": todoKey++, "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false}
         ]);
         setTodo("");
     }
@@ -110,6 +110,9 @@ export default function TodoList() {
                     <tbody>
                         {todoList.map((row, index) => (
                             <tr className="group w-full" key={index} data-rowid={index}>
+                                <td>
+                                    <input type="checkbox" name="taskStatus" className="mr-3 w-5 h-5 border-solid border-4"/>
+                                </td>
                                 <td className="pr-3">{`${index + 1}.`}</td>
                                 <td onDoubleClick={handleDoubleClick}
                                     className={`p-3 w-full ${(row.textHidden ? "hidden" : "")}`}
