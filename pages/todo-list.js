@@ -22,6 +22,21 @@ export default function TodoList() {
         setTodo("");
     }
 
+    // Clicking the checkbox marks a task as done or undone
+    const markAsDone = (e) => {
+        const doneTodoList = todoList.map((listItem, i) => {
+            if ((parseInt(e.target.getAttribute("data-checkboxid")) === i) && listItem.isDone === false) {
+                listItem.isDone = true;
+                return listItem;
+            } else if ((parseInt(e.target.getAttribute("data-checkboxid")) === i) && listItem.isDone === true) {
+                listItem.isDone = false;
+                return listItem;
+            } else {
+                return listItem;
+            }
+        });
+        setTodoList(doneTodoList);
+    }
 
     // Double click a task to edit it.
     const handleDoubleClick = (e) => {
@@ -116,11 +131,17 @@ export default function TodoList() {
                             {todoList.map((row, index) => (
                                 <tr className="group w-full" key={index} data-rowid={index}>
                                     <td>
-                                        <input type="checkbox" name="taskStatus" className="mr-3 w-5 h-5 border-solid border-4"/>
+                                        <input
+                                            type="checkbox"
+                                            name="taskStatus"
+                                            onClick={markAsDone} 
+                                            className="mr-3 w-5 h-5 border-solid border-4"
+                                            data-checkboxid={index}
+                                        />
                                     </td>
                                     <td className="pr-3">{`${index + 1}.`}</td>
                                     <td onDoubleClick={handleDoubleClick}
-                                        className={`p-3 w-full ${(row.textHidden ? "hidden" : "")}`}
+                                        className={`p-3 w-full ${(row.textHidden ? "hidden" : "")} ${(row.isDone ? "line-through text-gray-300" : "")}`}
                                         data-taskid={index}>
                                         {row.taskText}
                                     </td>
