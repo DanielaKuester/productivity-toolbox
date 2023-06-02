@@ -13,8 +13,8 @@ export default function Pomodoro() {
                     Pomodoro Timer
                 </h1>
                 <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full xl:w-1/3">
-                    <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 mb-1 z-10">
-                        <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={600} height={200}/>
+                    <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 ml-40 mb-1 z-10">
+                        <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={300} height={300}/>
                     </div>
                     <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">20:00</div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
@@ -28,7 +28,7 @@ export default function Pomodoro() {
                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
                         font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40">Reset</button>
                     </div>
-                    <div className="bg-blue-200 min-h-[60px] border border-black border-t-0 col-span-3 border-r-0 rounded-bl-3xl text-xl pb-4">
+                    <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 border-r-0 rounded-bl-3xl text-xl pb-4">
                         <form>
                             <div className="m-3 ml-5 mt-4">
                                 <label className="mr-1">Work (in min):</label>
@@ -50,9 +50,9 @@ export default function Pomodoro() {
                             </button>
                         </form>
                     </div>
-                    <div className="bg-blue-200 min-h-[60px] border border-black border-t-0 col-span-3 rounded-br-3xl p-3 text-xl">
+                    <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 rounded-br-3xl p-3 text-xl">
                         <h2 className="mt-1 ml-2 underline">Current Task:</h2>
-                        <p className="mt-1 ml-2">Find out how CSS Grid woks best and apply those experimental changes to my pomodoro timer.
+                        <p className="mt-1 ml-2">Find out how CSS Grid works best and apply those experimental changes to my pomodoro timer.
                         </p>
                     </div>
                 </div>
