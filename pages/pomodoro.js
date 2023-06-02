@@ -13,8 +13,8 @@ export default function Pomodoro() {
                     Pomodoro Timer
                 </h1>
                 <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full xl:w-1/3">
-                    <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 ml-40 mb-1 z-10">
-                        <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={300} height={300}/>
+                    <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 ml-28 -mb-9 z-10">
+                        <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={400} height={400}/>
                     </div>
                     <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">20:00</div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
