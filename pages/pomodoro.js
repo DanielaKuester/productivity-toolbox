@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 export default function Pomodoro() {
 
     return(
@@ -11,7 +13,10 @@ export default function Pomodoro() {
                     Pomodoro Timer
                 </h1>
                 <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full xl:w-1/3">
-                    <div className="bg-blue-100 min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3">20:00</div>
+                    <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 mb-1 z-10">
+                        <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={600} height={200}/>
+                    </div>
+                    <div className="bg-blue-100 min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32">20:00</div>
                     <div className="bg-blue-200 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
                         <button className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
