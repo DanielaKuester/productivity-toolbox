@@ -9,7 +9,7 @@ export default function Pomodoro() {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
             <div className="min-h-screen bg-gradient-to-br from-green-300 via-blue-400 to-purple-500">
-                <h1 className="text-4xl p-8 font-bold text-white text-center">
+                <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
                 <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full xl:w-1/3">
