@@ -12,7 +12,7 @@ export default function Pomodoro() {
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
-                <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full xl:w-1/3">
+                <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full md:w-1/2 lg:w-1/3">
                     <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 ml-28 -mb-9 z-10">
                         <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={400} height={400}/>
                     </div>
@@ -20,13 +20,13 @@ export default function Pomodoro() {
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
                         <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40">Start/Pause</button>
+                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16">Start/Pause</button>
                         <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40">Stop</button>
+                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16">Stop</button>
                         <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40">Reset</button>
+                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16">Reset</button>
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 border-r-0 rounded-bl-3xl text-xl pb-4">
                         <form>
@@ -45,7 +45,7 @@ export default function Pomodoro() {
                             <button type="submit"
                                 className="text-black bg-blue-300 hover:bg-blue-400 border border-black
                                 focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                font-medium text-2xl px-5 py-2 ml-5 text-center h-12 m-3 w-40">
+                                font-medium text-2xl px-5 py-2 ml-5 text-center h-12 m-3 w-40 h-16">
                                 Set times
                             </button>
                         </form>
