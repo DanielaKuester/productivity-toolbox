@@ -1,20 +1,21 @@
 const express = require('express')
 const router = express.Router()
+const { getTodos, setTodo, updateTodo, deleteTodo } = require('../controllers/todoController')
 
-router.get('/', (req, res) => {
-    res.status(200).json({message: "Get todos"});
-});
+/*
+The functions handling the http request methods (GET, POST, UPDATE, DELETE) are in the todoController.js file.
+This file only handles the routes to which the http request methods are applied.
 
-router.post('/', (req, res) => {
-    res.status(200).json({message: "Set todo"});
-});
+Long routes version:
 
-router.put('/:id', (req, res) => {
-    res.status(200).json({message: `Update todo ${req.params.id}`});
-});
+router.get('/', getTodos);
+router.post('/', setTodo);
+router.put('/:id', updateTodo);
+router.delete('/:id', deleteTodo);
+*/
 
-router.delete('/:id', (req, res) => {
-    res.status(200).json({message: `Delete todo ${req.params.id}`});
-});
+// Shorter version bundling the same routes:
+router.route('/').get(getTodos).post(setTodo);
+router.route('/:id').delete(deleteTodo).put(updateTodo);
 
 module.exports = router
