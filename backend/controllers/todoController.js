@@ -1,10 +1,13 @@
 const asyncHandler = require('express-async-handler') // Add express async handler for async requests
 
+const Todo = require('../models/todoModel')
+
 // @desc    Get todos
 // @route   GET /api/todos
 // @access  public ==> later private for all GET/POST/PUT/DELETE requests --> after authentification, login, signup is added)
 const getTodos = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'Get goals' })
+    const todos = await Todo.find({})
+    res.status(200).json({ todos })
 })
 
 // @desc    Set todo
@@ -16,7 +19,11 @@ const setTodo = asyncHandler(async (req, res) => {
         throw new Error('Please add a text field')
     }
 
-    res.status(200).json({ message: 'Set goal' })
+    const todo = await Todo.create({
+        text: req.body.text
+    })
+
+    res.status(200).json(todo)
 })
 
 // @desc    Update todo
