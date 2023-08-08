@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler') // Add express async handler for async requests
+const mongoose = require('mongoose')
 
 const Todo = require('../models/todoModel')
 
@@ -30,7 +31,18 @@ const setTodo = asyncHandler(async (req, res) => {
 // @route   PUT /api/todos/:id
 // @access  public
 const updateTodo = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Update todo ${req.params.id}`});
+    const todo = await Todo.findById(req.params.id)
+
+    if(!todo) {
+        res.status(400)
+        throw new Error('Todo not found')
+    }
+
+    const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+    })
+
+    res.status(200).json(updatedTodo)
 })
 
 // @desc    Delete todo
