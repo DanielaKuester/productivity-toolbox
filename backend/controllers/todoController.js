@@ -14,13 +14,16 @@ const getTodos = asyncHandler(async (req, res) => {
 // @route   POST /api/todos
 // @access  public
 const setTodo = asyncHandler(async (req, res) => {
-    if (!req.body.text) {
+    if (!req.body.taskText) {
         res.status(400)
         throw new Error('Please add a text field')
     }
 
     const todo = await Todo.create({
-        text: req.body.text
+        taskText: req.body.taskText,
+        textHidden: false,
+        inputHidden: true,
+        isDone: false
     })
 
     res.status(200).json(todo)
