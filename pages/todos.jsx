@@ -31,7 +31,35 @@ export default function TodoList() {
     }
 
     // Clicking the checkbox marks a task as done or undone
-    const markAsDone = (e) => {
+    const markAsDone = async (e) => {
+        console.log(e.target.getAttribute("data-checkboxid"));
+        const doneTodo = `http://127.0.0.1:5000/api/todos/${e.target.getAttribute("data-checkboxid")}`;
+        console.log(doneTodo);
+        try {
+            const {data} = await axios({
+                method: 'put',
+                url: doneTodo,
+                data: {
+                    isDone: true,
+                }
+            })
+
+        } catch (err) {
+            if (err) {
+                console.log("There was an error:" , err);
+            }
+        }
+
+        /*
+        axios.put(doneTodo)
+            .then(response => {
+                response.data.isDone === true;
+                console.log(response.data.isDone);
+            })
+            .catch(error => {
+                console.error('There was an error', error)
+            })
+
         const doneTodoList = todoList.map((listItem, i) => {
             if ((parseInt(e.target.getAttribute("data-checkboxid")) === i) && listItem.isDone === false) {
                 listItem.isDone = true;
@@ -44,6 +72,7 @@ export default function TodoList() {
             }
         });
         setTodoList(doneTodoList);
+        */
     }
 
     // Double click a task to edit it.
@@ -153,7 +182,7 @@ export default function TodoList() {
                                             name="taskStatus"
                                             onClick={markAsDone} 
                                             className="mr-3 w-5 h-5 border-solid border-4"
-                                            data-checkboxid={index}
+                                            data-checkboxid={row._id}
                                         />
                                     </td>
                                     <td className="pr-3">{`${index + 1}.`}</td>
