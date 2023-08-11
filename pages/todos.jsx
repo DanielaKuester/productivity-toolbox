@@ -98,11 +98,17 @@ export default function TodoList() {
      * Code for the delete function taken from https://stackoverflow.com/questions/29527385/removing-element-from-array-in-component-state
      * The function filters through the (soon old) task list and only gives back an item if it doesn't match the index of the clicked item.
      * _ represents an unused argument: Here, it is the current item in the array.
-     */
-    const deleteTask = (index) => {
-        setTodoList(oldList => {
-            return oldList.filter((_, i) => i !== index)
-        })
+
+        const deleteTask = (index) => {
+            setTodoList(oldList => {
+                return oldList.filter((_, i) => i !== index)
+            })
+        }
+    */
+
+    const deleteTask = (todoTaskId) => {
+        axios.delete(`http://127.0.0.1:5000/api/todos/${todoTaskId}`)
+            .then(console.log(`Item ${todoTaskId} deleted successfully`))
     }
 
     return(
@@ -177,7 +183,7 @@ export default function TodoList() {
                                     </td>
                                     <td>
                                         <button
-                                            onClick={() => deleteTask(index)}
+                                            onClick={() => deleteTask(row._id)}
                                             type="button"
                                             className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
