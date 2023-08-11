@@ -10,9 +10,9 @@ export default function TodoList() {
     // Fetch the todos data with the useEffect hook, so that the GET request is only made when first loading/rendering the page
     useEffect(() => {
         axios.get("http://127.0.0.1:5000/api/todos")
-        .then((response) => setTodoList(response.data.todos))
-        .catch((error) => console.log(error));
-    }, [])
+            .then((response) => setTodoList(response.data.todos))
+            .catch((error) => console.log("There was an error:", error));
+    })
 
     // Enter text into the input field and click the button to add a new task.
     const handleChange = (e) => {
@@ -109,6 +109,9 @@ export default function TodoList() {
     const deleteTask = (todoTaskId) => {
         axios.delete(`http://127.0.0.1:5000/api/todos/${todoTaskId}`)
             .then(console.log(`Item ${todoTaskId} deleted successfully`))
+            .catch(error => {
+                console.log("An error occured:", error);
+            })
     }
 
     return(
