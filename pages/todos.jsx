@@ -59,31 +59,6 @@ export default function TodoList() {
             .catch(error => {
                 console.error('There was an error', error)
             });
-
-
-        /*
-        axios.put(doneTodo)
-            .then(response => {
-                response.data.isDone === true;
-                console.log(response.data.isDone);
-            })
-            .catch(error => {
-                console.error('There was an error', error)
-            })
-
-        const doneTodoList = todoList.map((listItem, i) => {
-            if ((parseInt(e.target.getAttribute("data-checkboxid")) === i) && listItem.isDone === false) {
-                listItem.isDone = true;
-                return listItem;
-            } else if ((parseInt(e.target.getAttribute("data-checkboxid")) === i) && listItem.isDone === true) {
-                listItem.isDone = false;
-                return listItem;
-            } else {
-                return listItem;
-            }
-        });
-        setTodoList(doneTodoList);
-        */
     }
 
     // Double click a task to edit it.
