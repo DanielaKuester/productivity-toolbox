@@ -32,22 +32,32 @@ export default function TodoList() {
 
     // Clicking the checkbox marks a task as done or undone
     const markAsDone = async (e) => {
-        console.log(e.target.getAttribute("data-checkboxid"));
         const todoItemId = e.target.getAttribute("data-checkboxid");
         const doneTodo = `http://127.0.0.1:5000/api/todos/${todoItemId}`;
-        console.log(doneTodo);
         axios.get(`http://127.0.0.1:5000/api/todos/`)
             .then((response) => {
                 const todosArray = response.data.todos;
-                console.log(todosArray);
                 // Get the clicked item
                 for (let i = 0; i < todosArray.length; i++) {
                     if ((todosArray[i]._id === todoItemId) && (todosArray[i].isDone === true)) {
-                        console.log(`The clicked item is: ${todosArray[i]._id} and the isDone status is ${todosArray[i].isDone}.\nYou have to set the isDone status to false.`);
+                        //console.log(`The clicked item is: ${todosArray[i]._id} and the isDone status is ${todosArray[i].isDone}.\nYou have to set the isDone status to false.`);
+                        axios.put(doneTodo,
+                            {
+                                isDone: false,
+                            }
+                        );
                     } else if ((todosArray[i]._id === todoItemId) && (todosArray[i].isDone === false)) {
-                        console.log(`The clicked item is: ${todosArray[i]._id} and the isDone status is ${todosArray[i].isDone}.\nYou have to set the isDone status to true.`);
+                        //console.log(`The clicked item is: ${todosArray[i]._id} and the isDone status is ${todosArray[i].isDone}.\nYou have to set the isDone status to true.`);
+                        axios.put(doneTodo,
+                            {
+                                isDone: true,
+                            }
+                        );
                     }
                 }
+            })
+            .catch(error => {
+                console.error('There was an error', error)
             });
 
 
