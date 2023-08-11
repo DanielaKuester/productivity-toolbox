@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-let todoKey = 0;
-
 export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
@@ -23,10 +21,12 @@ export default function TodoList() {
 
     const addTask = (e) => {
         e.preventDefault();
-        setTodoList([
-            ...todoList,
-            { "key": todoKey++, "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false}
-        ]);
+        const newTodo = { "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false};
+        axios.post("http://127.0.0.1:5000/api/todos", newTodo)
+            .then(response => setTodoList([...todoList, newTodo]))
+            .catch(error => {
+                console.error('There was an error', error)
+            })
         setTodo("");
     }
 
