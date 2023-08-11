@@ -9,19 +9,12 @@ export default function TodoList() {
     const [task, setTask] = useState("");
     const [editingTest, setEditingTest] = useState([]);
 
-    const fetchTodoData = () => {
+    // Fetch the todos data with the useEffect hook, so that the GET request is only made when first loading/rendering the page
+    useEffect(() => {
         axios.get("http://127.0.0.1:5000/api/todos")
-            //.then((response) => console.log(response.data.todos[0]))
-            /*
-            .then((response) => response.data.todos.forEach(element => {
-                console.log(element)
-            }))
-            */
-            .then((response) => setTodoList(response.data.todos))
-            .catch((error) => console.log(error));
-    }
-
-    fetchTodoData()
+        .then((response) => setTodoList(response.data.todos))
+        .catch((error) => console.log(error));
+    }, [])
 
     // Enter text into the input field and click the button to add a new task.
     const handleChange = (e) => {
