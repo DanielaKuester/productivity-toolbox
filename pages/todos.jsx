@@ -33,22 +33,23 @@ export default function TodoList() {
     // Clicking the checkbox marks a task as done or undone
     const markAsDone = async (e) => {
         console.log(e.target.getAttribute("data-checkboxid"));
-        const doneTodo = `http://127.0.0.1:5000/api/todos/${e.target.getAttribute("data-checkboxid")}`;
+        const todoItemId = e.target.getAttribute("data-checkboxid");
+        const doneTodo = `http://127.0.0.1:5000/api/todos/${todoItemId}`;
         console.log(doneTodo);
-        try {
-            const {data} = await axios({
-                method: 'put',
-                url: doneTodo,
-                data: {
-                    isDone: true,
+        axios.get(`http://127.0.0.1:5000/api/todos/`)
+            .then((response) => {
+                const todosArray = response.data.todos;
+                console.log(todosArray);
+                // Get the clicked item
+                for (let i = 0; i < todosArray.length; i++) {
+                    if ((todosArray[i]._id === todoItemId) && (todosArray[i].isDone === true)) {
+                        console.log(`The clicked item is: ${todosArray[i]._id} and the isDone status is ${todosArray[i].isDone}.\nYou have to set the isDone status to false.`);
+                    } else if ((todosArray[i]._id === todoItemId) && (todosArray[i].isDone === false)) {
+                        console.log(`The clicked item is: ${todosArray[i]._id} and the isDone status is ${todosArray[i].isDone}.\nYou have to set the isDone status to true.`);
+                    }
                 }
-            })
+            });
 
-        } catch (err) {
-            if (err) {
-                console.log("There was an error:" , err);
-            }
-        }
 
         /*
         axios.put(doneTodo)
