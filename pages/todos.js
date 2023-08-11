@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 let todoKey = 0;
@@ -9,13 +9,19 @@ export default function TodoList() {
     const [task, setTask] = useState("");
     const [editingTest, setEditingTest] = useState([]);
 
-    const fetchData = () => {
+    const fetchTodoData = () => {
         axios.get("http://127.0.0.1:5000/api/todos")
-            .then((response) => console.log(response.data))
+            //.then((response) => console.log(response.data.todos[0]))
+            /*
+            .then((response) => response.data.todos.forEach(element => {
+                console.log(element)
+            }))
+            */
+            .then((response) => setTodoList(response.data.todos))
             .catch((error) => console.log(error));
     }
 
-    fetchData()
+    fetchTodoData()
 
     // Enter text into the input field and click the button to add a new task.
     const handleChange = (e) => {
