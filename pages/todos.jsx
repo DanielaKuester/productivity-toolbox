@@ -98,15 +98,27 @@ export default function TodoList() {
             .then((response) => {
                 response.data.todos.map((item) => {
                     if (e.target.getAttribute("data-inputid") === item._id) {
-                        axios.put(editedTodo,
-                            {
-                                taskText: task,
-                                textHidden: false,
-                                inputHidden: true
-                            }
-                        );
-                        setTask("");
-                        setEditingTest([]);
+                        if (task != "") {
+                            axios.put(editedTodo,
+                                {
+                                    taskText: task,
+                                    textHidden: false,
+                                    inputHidden: true
+                                }
+                            );
+                            setTask("");
+                            setEditingTest([]);
+                        } else if (task === "") {
+                            axios.put(editedTodo,
+                                {
+                                    taskText: e.target.value,
+                                    textHidden: false,
+                                    inputHidden: true
+                                }
+                            );
+                            setTask("");
+                            setEditingTest([]);
+                        }
                     } else {
                         // Do nothing
                     }
