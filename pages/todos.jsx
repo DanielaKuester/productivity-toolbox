@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaTrash } from "react-icons/fa6"
+import { FaTrash, FaPencil } from "react-icons/fa6"
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
@@ -71,7 +71,7 @@ export default function TodoList() {
         axios.get(`http://127.0.0.1:5000/api/todos/`)
             .then((response) => {
                 response.data.todos.map((item) => {
-                    if ((taskID === item._id) /*&& (editingTest.length === 0)*/) {
+                    if ((taskID === item._id) && (editingTest.length === 0)) {
                         setEditingTest(["This string only exists to test if the user already selected a task to edit it."]);
                         axios.put(doubleClickedTodo,
                             {
@@ -212,8 +212,8 @@ export default function TodoList() {
                                             type="submit"
                                             className="col-span-2 w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5">
-                                            Edit
+                                            font-medium rounded-lg text-2xl px-12 py-1 w-24 text-center ml-5">
+                                            <FaPencil />
                                         </button>
                                     </form>
                                     <button
@@ -221,7 +221,7 @@ export default function TodoList() {
                                         type="button"
                                         className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-7 py-1 h-10 ml-10 w-20 text-center hidden group-hover:block">
+                                        font-medium rounded-lg text-2xl px-9 py-1 h-10 ml-10 w-24 text-center hidden group-hover:block">
                                         <FaTrash />
                                     </button>
                                 </div>
