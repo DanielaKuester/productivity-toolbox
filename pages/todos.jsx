@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { FaTrash } from "react-icons/fa6"
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
@@ -220,8 +221,8 @@ export default function TodoList() {
                                         type="button"
                                         className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-5 py-1 h-10 ml-10 w-28 text-center hidden group-hover:block">
-                                        Delete
+                                        font-medium rounded-lg text-2xl px-7 py-1 h-10 ml-10 w-20 text-center hidden group-hover:block">
+                                        <FaTrash />
                                     </button>
                                 </div>
                             ))}
