@@ -64,25 +64,29 @@ export default function TodoList() {
     // Double click a task to edit it.
     const handleDoubleClick = (e) => {
         const taskID = e.target.getAttribute("data-taskid");
+        const doubleClickedTodo = `http://127.0.0.1:5000/api/todos/${taskID}`;
         //const inputID = e.target.nextSibling.firstChild.getAttribute("data-inputid");
 
         /* 
          * Map through the list. If the taskID of the clicked item matches the index of the item in the mapped array,
          * the item's value of textHidden and inputHidden changes to show/hide the task text or the input field.
          */
-
-        const filteredTodoList = todoList.map((item, i) => {
-            // The editingTest array makes sure that the user can only edit exactly one task at a time.
-            if ((parseInt(taskID) === i) && (editingTest.length === 0)) {
-                setEditingTest(["This string only exists to test if the user already selected a task to edit it."]);
-                item.textHidden = true;
-                item.inputHidden = false;
-                return item;
-            } else {
-                return item;
-            }
-        });
-        setTodoList(filteredTodoList);
+        axios.get(`http://127.0.0.1:5000/api/todos/`)
+            .then((response) => {
+                response.data.todos.map((item) => {
+                    if ((taskID === item._id) && (editingTest.length === 0)) {
+                        setEditingTest(["This string only exists to test if the user already selected a task to edit it."]);
+                        axios.put(doubleClickedTodo,
+                            {
+                                textHidden: true,
+                                inputHidden: false
+                            }
+                        );
+                    } else {
+                        // Do nothing.
+                    }
+                });
+            })
     }
 
     const handleEditChange = (e) => {
@@ -90,21 +94,28 @@ export default function TodoList() {
     }
 
     const editTask = (e) => {
+        const inputId = e.target.getAttribute("data-inputid");
+        const editedTodo = `http://127.0.0.1:5000/api/todos/${inputId}`;
         e.preventDefault();
         setTask(task);
-        const editedTodoList = todoList.map((listItem, i) => {
-            if (parseInt(e.target.getAttribute("data-inputid")) === i) {
-                listItem.taskText = task;
-                listItem.textHidden = false;
-                listItem.inputHidden = true;
-                return listItem;
-            } else {
-                return listItem;
-            }
-        });
-        setTodoList(editedTodoList);
-        setTask("");
-        setEditingTest([]);
+        axios.get(`http://127.0.0.1:5000/api/todos/`)
+            .then((response) => {
+                response.data.todos.map((item) => {
+                    if (e.target.getAttribute("data-inputid") === item._id) {
+                        axios.put(editedTodo,
+                            {
+                                taskText: task,
+                                textHidden: false,
+                                inputHidden: true
+                            }
+                        );
+                        setTask("");
+                        setEditingTest([]);
+                    } else {
+                        // Do nothing
+                    }
+                });
+            })
     }
 
     /*
@@ -174,12 +185,12 @@ export default function TodoList() {
                                     <td className="pr-3">{`${index + 1}.`}</td>
                                     <td onDoubleClick={handleDoubleClick}
                                         className={`p-3 w-full ${(row.textHidden ? "hidden" : "")} ${(row.isDone ? "line-through text-gray-300" : "")}`}
-                                        data-taskid={index}>
+                                        data-taskid={row._id}>
                                         {row.taskText}
                                     </td>
                                     <td className="p-1">
                                         <form
-                                            data-inputid={index}
+                                            data-inputid={row._id}
                                             className={`container flex ${(row.inputHidden ? "hidden" : "")}`}
                                             onSubmit={editTask}>
                                             <input
