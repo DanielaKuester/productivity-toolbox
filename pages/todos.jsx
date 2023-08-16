@@ -70,7 +70,7 @@ export default function TodoList() {
         axios.get(`http://127.0.0.1:5000/api/todos/`)
             .then((response) => {
                 response.data.todos.map((item) => {
-                    if ((taskID === item._id) && (editingTest.length === 0)) {
+                    if ((taskID === item._id) /*&& (editingTest.length === 0)*/) {
                         setEditingTest(["This string only exists to test if the user already selected a task to edit it."]);
                         axios.put(doubleClickedTodo,
                             {
@@ -177,11 +177,10 @@ export default function TodoList() {
                 <div className={`container mx-auto box-border rounded-xl h-auto sd:w-full xl:w-1/2 p-4 px-10 shadow-2xl
                     bg-gray-700 bg-opacity-20 text-left text-2xl text-white`}>
                         <p className={`pb-3 ${(todoList.length === 0 ? "" : "hidden")}`}>Enter a task and your to-do-list will appear here.</p>
-                    <table>
-                        <tbody>
+                        <div>
                             {todoList.map((row, index) => (
-                                <tr className="group w-full" key={index} data-rowid={index}>
-                                    <td>
+                                <div className="grid grid-cols-12 group w-full pb-5 h-12" key={index} data-rowid={index}>
+                                    <div className="col-span-1">
                                         <input
                                             type="checkbox"
                                             name="taskStatus"
@@ -189,49 +188,44 @@ export default function TodoList() {
                                             className="mr-3 w-5 h-5 border-solid border-4"
                                             data-checkboxid={row._id}
                                         />
-                                    </td>
-                                    <td className="pr-3">{`${index + 1}.`}</td>
-                                    <td onDoubleClick={handleDoubleClick}
-                                        className={`p-3 w-full ${(row.textHidden ? "hidden" : "")} ${(row.isDone ? "line-through text-gray-300" : "")}`}
+                                    </div>
+                                    <div className="col-span-1">{`${index + 1}.`}</div>
+                                    <div onDoubleClick={handleDoubleClick}
+                                        className={`col-span-8 ${(row.textHidden ? "hidden" : "")} ${(row.isDone ? "line-through text-gray-300" : "")}`}
                                         data-taskid={row._id}>
                                         {row.taskText}
-                                    </td>
-                                    <td className="p-1">
-                                        <form
-                                            data-inputid={row._id}
-                                            className={`container flex ${(row.inputHidden ? "hidden" : "")}`}
-                                            onSubmit={editTask}>
-                                            <input
-                                                    className="pl-2 h-10 w-full text-black text-2xl"
-                                                    type="text"
-                                                    name="newtodo"
-                                                    placeholder={row.taskText}
-                                                    value={task}
-                                                    onChange={handleEditChange}
-                                            />
-                                            <button
-                                                type="submit"
-                                                className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
-                                                focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                                font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5 mr-2 mb-2 h-10">
-                                                Edit
-                                            </button>
-                                        </form>
-                                    </td>
-                                    <td>
+                                    </div>
+                                    <form
+                                        data-inputid={row._id}
+                                        className={`col-span-8 grid grid-cols-10 ${(row.inputHidden ? "hidden" : "")}`}
+                                        onSubmit={editTask}>
+                                        <input
+                                                className="col-span-8 pl-2 h-10 text-black text-2xl"
+                                                type="text"
+                                                name="newtodo"
+                                                placeholder={row.taskText}
+                                                value={task}
+                                                onChange={handleEditChange}
+                                        />
                                         <button
-                                            onClick={() => deleteTask(row._id)}
-                                            type="button"
-                                            className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                                            type="submit"
+                                            className="col-span-2 w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                            font-medium rounded-lg text-2xl px-5 py-1 text-center mb-2 h-10 hidden group-hover:block">
-                                            Delete
+                                            font-medium rounded-lg text-2xl px-5 py-1 text-center ml-5">
+                                            Edit
                                         </button>
-                                    </td>
-                                </tr>
+                                    </form>
+                                    <button
+                                        onClick={() => deleteTask(row._id)}
+                                        type="button"
+                                        className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                                        font-medium rounded-lg text-2xl px-5 py-1 h-10 ml-10 w-28 text-center hidden group-hover:block">
+                                        Delete
+                                    </button>
+                                </div>
                             ))}
-                        </tbody>
-                    </table>
+                        </div>
                 </div>
             </div>
         </>
