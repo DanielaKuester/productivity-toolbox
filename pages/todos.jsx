@@ -173,11 +173,11 @@ export default function TodoList() {
                 </form>
                 <div className={`container mx-auto box-border rounded-xl h-auto sd:w-full xl:w-1/2 p-4 px-10 shadow-2xl
                     bg-gray-700 bg-opacity-20 text-left text-2xl text-white`}>
-                        <p className={`pb-3 ${(todoList.length === 0 ? "" : "hidden")}`}>Enter a task and your to-do-list will appear here.</p>
+                        <p className={`${(todoList.length === 0 ? "" : "hidden")}`}>Enter a task and your to-do-list will appear here.</p>
                         <div>
                             {todoList.map((row, index) => (
-                                <div className="grid grid-cols-12 group w-full pb-5 h-12" key={index} data-rowid={index}>
-                                    <div className="col-span-1">
+                                <div className="grid grid-cols-12 pb-1 group w-full " key={index} data-rowid={index}>
+                                    <div className="col-span-1 h-10">
                                         <input
                                             type="checkbox"
                                             name="taskStatus"
