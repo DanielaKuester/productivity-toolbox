@@ -6,7 +6,6 @@ export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [task, setTask] = useState("");
-    const [editingTest, setEditingTest] = useState([]);
 
     // Fetch the todos data with the useEffect hook, so that the GET request is only made when first loading/rendering the page
     useEffect(() => {
@@ -63,16 +62,15 @@ export default function TodoList() {
         const taskID = e.target.getAttribute("data-taskid");
         const doubleClickedTodo = `http://127.0.0.1:5000/api/todos/${taskID}`;
         //const inputID = e.target.nextSibling.firstChild.getAttribute("data-inputid");
-
         /* 
          * Map through the list. If the taskID of the clicked item matches the index of the item in the mapped array,
          * the item's value of textHidden and inputHidden changes to show/hide the task text or the input field.
          */
         axios.get(`http://127.0.0.1:5000/api/todos/`)
             .then((response) => {
+                let filteredTodos = response.data.todos.filter(item => item.inputHidden === false);
                 response.data.todos.map((item) => {
-                    if ((taskID === item._id) && (editingTest.length === 0)) {
-                        setEditingTest(["This string only exists to test if the user already selected a task to edit it."]);
+                    if ((taskID === item._id) && (filteredTodos.length === 0)) {
                         axios.put(doubleClickedTodo,
                             {
                                 textHidden: true,
@@ -108,7 +106,6 @@ export default function TodoList() {
                                 }
                             );
                             setTask("");
-                            setEditingTest([]);
                         } else if (task === "") {
                             axios.put(editedTodo,
                                 {
@@ -118,7 +115,6 @@ export default function TodoList() {
                                 }
                             );
                             setTask("");
-                            setEditingTest([]);
                         }
                     } else {
                         // Do nothing
