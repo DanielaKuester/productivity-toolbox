@@ -93,30 +93,14 @@ export default function Diary() {
             })
     }
     */
-
-    /*
-     * Delete a task
-     * 
-     * Code for the delete function taken from https://stackoverflow.com/questions/29527385/removing-element-from-array-in-component-state
-     * The function filters through the (soon old) task list and only gives back an item if it doesn't match the index of the clicked item.
-     * _ represents an unused argument: Here, it is the current item in the array.
-
-        const deleteTask = (index) => {
-            setTodoList(oldList => {
-                return oldList.filter((_, i) => i !== index)
-            })
-        }
-    */
     
-    /*
-    const deleteTask = (todoTaskId) => {
-        axios.delete(`http://127.0.0.1:5000/api/todos/${todoTaskId}`)
-            .then(console.log(`Item ${todoTaskId} deleted successfully`))
+    const deleteDiaryEntry = (diaryEntryId) => {
+        axios.delete(`http://127.0.0.1:5000/api/diary/${diaryEntryId}`)
+            .then(console.log(`Item ${diaryEntryId} deleted successfully`))
             .catch(error => {
                 console.log("An error occured:", error);
             })
     }
-    */
 
     return(
         <>
@@ -176,15 +160,15 @@ export default function Diary() {
                                             <FaPencil />
                                         </button>
                                     </form>
+                                    */}
                                     <button
-                                        onClick={() => deleteTask(row._id)}
+                                        onClick={() => deleteDiaryEntry(row._id)}
                                         type="button"
                                         className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
                                         font-medium rounded-lg text-2xl px-9 py-1 h-10 ml-10 w-24 text-center hidden group-hover:block">
                                         <FaTrash />
                                     </button>
-                                    */}
                                 </div>
                             ))}
                         </div>
