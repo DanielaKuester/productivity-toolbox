@@ -31,17 +31,16 @@ export default function Diary() {
     }
 
 
-    // Double click a task to edit it.
-    /*
+    // Double click a diary entry to edit it.
     const handleDoubleClick = (e) => {
-        const taskID = e.target.getAttribute("data-taskid");
-        const doubleClickedTodo = `http://127.0.0.1:5000/api/todos/${taskID}`;
-        axios.get(`http://127.0.0.1:5000/api/todos/`)
+        const diaryID = e.target.getAttribute("data-diaryentryid");
+        const doubleClickedDiaryEntry = `http://127.0.0.1:5000/api/diary/${diaryID}`;
+        axios.get(`http://127.0.0.1:5000/api/diary/`)
             .then((response) => {
-                let filteredTodos = response.data.todos.filter(item => item.inputHidden === false);
-                response.data.todos.map((item) => {
-                    if ((taskID === item._id) && (filteredTodos.length === 0)) {
-                        axios.put(doubleClickedTodo,
+                let filteredDiaryEntries = response.data.diaryEntries.filter(item => item.inputHidden === false);
+                response.data.diaryEntries.map((item) => {
+                    if ((diaryID === item._id) && (filteredDiaryEntries.length === 0)) {
+                        axios.put(doubleClickedDiaryEntry,
                             {
                                 textHidden: true,
                                 inputHidden: false
@@ -92,7 +91,6 @@ export default function Diary() {
                 });
             })
     }
-    */
     
     const deleteDiaryEntry = (diaryEntryId) => {
         axios.delete(`http://127.0.0.1:5000/api/diary/${diaryEntryId}`)
@@ -134,12 +132,11 @@ export default function Diary() {
                         <div>
                             {diaryList.map((row, index) => (
                                 <div className="grid grid-cols-12 pb-1 group w-full " key={index} data-rowid={index}>
-                                    <div //onDoubleClick={handleDoubleClick}
+                                    <div onDoubleClick={handleDoubleClick}
                                         className={`col-span-8 ${(row.textHidden ? "hidden" : "")}`}
                                         data-diaryentryid={row._id}>
                                         {row.diaryText}
                                     </div>
-                                    {/*
                                     <form
                                         data-inputid={row._id}
                                         className={`col-span-8 grid grid-cols-10 ${(row.inputHidden ? "hidden" : "")}`}
@@ -160,7 +157,6 @@ export default function Diary() {
                                             <FaPencil />
                                         </button>
                                     </form>
-                                    */}
                                     <button
                                         onClick={() => deleteDiaryEntry(row._id)}
                                         type="button"
