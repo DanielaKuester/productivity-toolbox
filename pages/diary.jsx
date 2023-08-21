@@ -5,7 +5,7 @@ import { FaTrash, FaPencil } from "react-icons/fa6"
 export default function Diary() {
     const [diaryEntry, setDiaryEntry] = useState("");
     const [diaryList, setDiaryList] = useState([]);
-    const [task, setTask] = useState("");
+    const [myDiaryEntry, setMyDiaryEntry] = useState("");
 
     // Fetch the diary data with the useEffect hook, so that the GET request is only made when first loading/rendering the page
     useEffect(() => {
@@ -54,36 +54,36 @@ export default function Diary() {
     }
 
     const handleEditChange = (e) => {
-        setTask(e.target.value);
+        setMyDiaryEntry(e.target.value);
     }
 
-    const editTask = (e) => {
+    const editDiaryEntry = (e) => {
         const inputId = e.target.getAttribute("data-inputid");
-        const editedTodo = `http://127.0.0.1:5000/api/todos/${inputId}`;
+        const editedDiaryEntry = `http://127.0.0.1:5000/api/diary/${inputId}`;
         e.preventDefault();
-        setTask(task);
-        axios.get(`http://127.0.0.1:5000/api/todos/`)
+        setMyDiaryEntry(myDiaryEntry);
+        axios.get(`http://127.0.0.1:5000/api/diary/`)
             .then((response) => {
-                response.data.todos.map((item) => {
+                response.data.diaryEntries.map((item) => {
                     if (e.target.getAttribute("data-inputid") === item._id) {
-                        if (task != "") {
-                            axios.put(editedTodo,
+                        if (myDiaryEntry != "") {
+                            axios.put(editedDiaryEntry,
                                 {
-                                    taskText: task,
+                                    diaryText: myDiaryEntry,
                                     textHidden: false,
                                     inputHidden: true
                                 }
                             );
-                            setTask("");
-                        } else if (task === "") {
-                            axios.put(editedTodo,
+                            setMyDiaryEntry("");
+                        } else if (myDiaryEntry === "") {
+                            axios.put(editedDiaryEntry,
                                 {
                                     taskText: e.target.value,
                                     textHidden: false,
                                     inputHidden: true
                                 }
                             );
-                            setTask("");
+                            setMyDiaryEntry("");
                         }
                     } else {
                         // Do nothing
@@ -140,13 +140,13 @@ export default function Diary() {
                                     <form
                                         data-inputid={row._id}
                                         className={`col-span-8 grid grid-cols-10 ${(row.inputHidden ? "hidden" : "")}`}
-                                        onSubmit={editTask}>
+                                        onSubmit={editDiaryEntry}>
                                         <input
                                                 className="col-span-8 pl-2 h-10 text-black text-2xl"
                                                 type="text"
-                                                name="newtodo"
-                                                placeholder={row.taskText}
-                                                value={task}
+                                                name="newdiaryentry"
+                                                placeholder={row.diaryText}
+                                                value={myDiaryEntry}
                                                 onChange={handleEditChange}
                                         />
                                         <button
