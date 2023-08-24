@@ -126,49 +126,45 @@ export default function Diary() {
                         Submit
                     </button>
                 </form>
-                <div className={`container mx-auto box-border rounded-xl h-auto sd:w-full xl:w-1/2 p-4 px-10 shadow-2xl
-                    bg-gray-700 bg-opacity-20 text-left text-2xl text-white`}>
+                {diaryList.map((row, index) => (
+                    <div className={`group grid grid-cols-12 container mx-auto box-border rounded-xl min-h-14 sd:w-full xl:w-1/2 p-4 px-10 shadow-2xl
+                        bg-gray-700 bg-opacity-20 text-left text-2xl text-white mb-8`} key={index} data-rowid={index}>
                         <p className={`${(diaryList.length === 0 ? "" : "hidden")}`}>Enter a diary entry and your progress diary will appear here.</p>
-                        <div>
-                            {diaryList.map((row, index) => (
-                                <div className="grid grid-cols-12 pb-1 group w-full " key={index} data-rowid={index}>
-                                    <div onDoubleClick={handleDoubleClick}
-                                        className={`col-span-8 ${(row.textHidden ? "hidden" : "")}`}
-                                        data-diaryentryid={row._id}>
-                                        {row.diaryText}
-                                    </div>
-                                    <form
-                                        data-inputid={row._id}
-                                        className={`col-span-8 grid grid-cols-10 ${(row.inputHidden ? "hidden" : "")}`}
-                                        onSubmit={editDiaryEntry}>
-                                        <input
-                                                className="col-span-8 pl-2 h-10 text-black text-2xl"
-                                                type="text"
-                                                name="newdiaryentry"
-                                                placeholder={row.diaryText}
-                                                value={myDiaryEntry}
-                                                onChange={handleEditChange}
-                                        />
-                                        <button
-                                            type="submit"
-                                            className="col-span-2 w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
-                                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                            font-medium rounded-lg text-2xl px-12 py-1 w-24 text-center ml-5">
-                                            <FaPencil />
-                                        </button>
-                                    </form>
-                                    <button
-                                        onClick={() => deleteDiaryEntry(row._id)}
-                                        type="button"
-                                        className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
-                                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-9 py-1 h-10 ml-10 w-24 text-center hidden group-hover:block">
-                                        <FaTrash />
-                                    </button>
-                                </div>
-                            ))}
+                        <div onDoubleClick={handleDoubleClick}
+                            className={`col-span-10 ${(row.textHidden ? "hidden" : "")}`}
+                            data-diaryentryid={row._id}>
+                            {row.diaryText}
                         </div>
-                </div>
+                        <form
+                            data-inputid={row._id}
+                            className={`col-span-12 grid grid-cols-10 ${(row.inputHidden ? "hidden" : "")}`}
+                            onSubmit={editDiaryEntry}>
+                            <input
+                                    className="col-span-8 pl-2 h-10 text-black text-2xl"
+                                    type="text"
+                                    name="newdiaryentry"
+                                    placeholder={row.diaryText}
+                                    value={myDiaryEntry}
+                                    onChange={handleEditChange}
+                            />
+                            <button
+                                type="submit"
+                                className="col-span-1 w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                                focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                                font-medium rounded-lg text-2xl px-12 py-1 w-24 text-center ml-5">
+                                <FaPencil />
+                            </button>
+                        </form>
+                        <button
+                            onClick={() => deleteDiaryEntry(row._id)}
+                            type="button"
+                            className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
+                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                            font-medium rounded-lg text-2xl px-9 py-1 ml-10 w-24 text-center hidden group-hover:block">
+                            <FaTrash />
+                        </button>
+                    </div>
+                ))}
             </div>
         </>
     )
