@@ -100,6 +100,16 @@ export default function Diary() {
             })
     }
 
+    // Explanation of UTC and local time: https://www.slingacademy.com/article/javascript-convert-utc-time-to-local-time-and-vice-versa/
+    const convertToLocalTime = (dateString) => {
+        let date = new Date(dateString);
+        let localTime = date.toLocaleString("en-US", {
+            dateStyle: "full",
+            timeStyle: "full"
+          });
+        return localTime;
+      };
+
     return(
         <>
             <title>Productivity Toolbox - Progress Diary</title>
@@ -135,7 +145,7 @@ export default function Diary() {
                     <div className={`group grid grid-cols-10 gap-y-4 container mx-auto box-border rounded-xl min-h-14 sd:w-full xl:w-1/2 p-4 px-10 shadow-2xl
                         bg-gray-700 bg-opacity-20 text-left text-2xl text-white mb-8`} key={index} data-rowid={index}>
                         
-                        <div className="date col-span-9 h-10">Date: {row.createdAt}</div>
+                        <div className="date col-span-9 h-10">{convertToLocalTime(row.createdAt)}</div>
                         <button
                             onClick={() => deleteDiaryEntry(row._id)}
                             type="button"
