@@ -156,7 +156,7 @@ export default function Diary() {
                         </button>
                         <div className="separator col-span-10 border border-t-0 border-gray-700 shadow-lg"></div>
                         <div onDoubleClick={handleDoubleClick}
-                            className={`col-span-9 h-10 ${(row.textHidden ? "hidden" : "")}`}
+                            className={`col-span-9 min-h-10 ${(row.textHidden ? "hidden" : "")}`}
                             data-diaryentryid={row._id}>
                             {row.diaryText}
                         </div>
