@@ -6,6 +6,24 @@ export default function Pomodoro() {
     const [shortBreak, setShortBreak] = useState(0);
     const [longBreak, setLongBreak] = useState(0);
 
+    const handleWorkChange = (e) => {
+        console.log(workTime);
+        setWorkTime(e.target.value);
+        console.log(`Work Time: ${workTime}`);
+    }
+
+    const handleShortBreakChange = (e) => {
+        console.log(shortBreak);
+        setShortBreak(e.target.value);
+        console.log(`Short Break: ${shortBreak}`);
+    }
+
+    const handleLongBreakChange = (e) => {
+        console.log(longBreak);
+        setLongBreak(e.target.value);
+        console.log(`Long Break: ${longBreak}`);
+    }
+
     return(
         <>
             <title>Productivity Toolbox - Pomodoro</title>
@@ -36,15 +54,35 @@ export default function Pomodoro() {
                         <form>
                             <div className="m-3 ml-5 mt-4">
                                 <label className="mr-1">Work (in min):</label>
-                                <input type="number" min="1" max="180" className="float-right pl-2 mr-2 w-24 border border-black"></input>
+                                <input
+                                    type="number"
+                                    min="1" max="180"
+                                    onChange={handleWorkChange}
+                                    className="float-right pl-2 mr-2 w-24 border border-black"
+                                >
+                                </input>
                             </div>
                             <div className="m-3 ml-5">
                                 <label>Short Break (in min):</label>
-                                <input type="number" min="1" max="180" className="float-right pl-2 mr-2 w-24 border border-black"></input>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    max="180"
+                                    onChange={handleShortBreakChange}
+                                    className="float-right pl-2 mr-2 w-24 border border-black"
+                                >
+                                </input>
                             </div>
                             <div className="m-3 ml-5">
                                 <label>Long Break (in min):</label>
-                                <input type="number" min="1" max="180" className="float-right pl-2 mr-2 w-24 border border-black"></input>
+                                <input
+                                    type="number"
+                                    min="1"
+                                    max="180"
+                                    onChange={handleLongBreakChange}
+                                    className="float-right pl-2 mr-2 w-24 border border-black"
+                                >
+                                </input>
                             </div>
                             <button type="submit"
                                 className="text-black bg-blue-300 hover:bg-blue-400 border border-black
