@@ -1,6 +1,10 @@
 import Image from "next/image"
+import { useState } from "react"
 
 export default function Pomodoro() {
+    const [workTime, setWorkTime] = useState(0);
+    const [shortBreak, setShortBreak] = useState(0);
+    const [longBreak, setLongBreak] = useState(0);
 
     return(
         <>
@@ -32,15 +36,15 @@ export default function Pomodoro() {
                         <form>
                             <div className="m-3 ml-5 mt-4">
                                 <label className="mr-1">Work (in min):</label>
-                                <input type="number" min="1" max="180" className="float-right mr-2 w-24 border border-black"></input>
+                                <input type="number" min="1" max="180" className="float-right pl-2 mr-2 w-24 border border-black"></input>
                             </div>
                             <div className="m-3 ml-5">
                                 <label>Short Break (in min):</label>
-                                <input type="number" min="1" max="180" className="float-right mr-2 w-24 border border-black"></input>
+                                <input type="number" min="1" max="180" className="float-right pl-2 mr-2 w-24 border border-black"></input>
                             </div>
                             <div className="m-3 ml-5">
                                 <label>Long Break (in min):</label>
-                                <input type="number" min="1" max="180" className="float-right mr-2 w-24 border border-black"></input>
+                                <input type="number" min="1" max="180" className="float-right pl-2 mr-2 w-24 border border-black"></input>
                             </div>
                             <button type="submit"
                                 className="text-black bg-blue-300 hover:bg-blue-400 border border-black
