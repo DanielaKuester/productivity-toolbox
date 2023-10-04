@@ -2,18 +2,22 @@
 
 import { useState, useEffect } from "react";
 
-const Timer = ({duration}) => {
-    const [time, setTime] = useState(duration);
+const Timer = ({ initialDuration }) => {
+    const [time, setTime] = useState(initialDuration);
 
-    if (duration > 0) {
-        // The setTimeout is called after each second.
-        setTimeout(() => {
-            // Decrease time by 1000 milliseconds (= 1 second).
-            setTime(time - 1000);
-        }, 1000)
-    } else if (duration === 0) {
-        console.log("The duration is 0.");
+  useEffect(() => {
+    if (initialDuration > 0) {
+      const timerId = setTimeout(() => {
+        setTime(time - 1000);
+      }, 1000);
+
+      return () => {
+        clearTimeout(timerId);
+      };
+    } else if (initialDuration === 0) {
+      console.log("The duration is 0.");
     }
+  }, [initialDuration, time]);
 
     const getFormattedTime = (milliseconds) => {
         // Transforms the time from milliseconds to seconds, from seconds to minutes, from minutes to hours and from hours to days.
@@ -28,6 +32,11 @@ const Timer = ({duration}) => {
         let hours = parseInt(total_hours % 24);
 
         return `${days}:${hours}:${minutes}:${seconds}`;
+    };
+
+    // Create a static method to update the timer's duration
+    Timer.updateDuration = (newDuration) => {
+        setTime(newDuration);
     };
 
     return <div>{getFormattedTime(time)}</div>
