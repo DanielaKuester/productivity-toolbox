@@ -5,13 +5,15 @@ import { useState, useEffect } from "react";
 const Timer = ({duration}) => {
     const [time, setTime] = useState(duration);
 
-    useEffect(() => {
+    if (duration > 0) {
         // The setTimeout is called after each second.
         setTimeout(() => {
             // Decrease time by 1000 milliseconds (= 1 second).
             setTime(time - 1000);
         }, 1000)
-    }, [time]);
+    } else if (duration === 0) {
+        console.log("The duration is 0.");
+    }
 
     const getFormattedTime = (milliseconds) => {
         // Transforms the time from milliseconds to seconds, from seconds to minutes, from minutes to hours and from hours to days.

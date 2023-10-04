@@ -23,7 +23,7 @@ export default function Pomodoro() {
         e.preventDefault();
         console.log(`The chosen work time is ${workTime} minutes.\n
         The chosen short break is ${shortBreak} minutes.\n
-        The chosen long break is ${longBreak} minutes.`)
+        The chosen long break is ${longBreak} minutes.`);
     }
 
     return(
@@ -41,7 +41,7 @@ export default function Pomodoro() {
                         <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={400} height={400}/>
                     </div>
                     <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">
-                        {<Timer duration={2 * 24 * 60 * 60 * 1000}/>}
+                        {<Timer duration={3 * 60 * 60 * 1000}/>}
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
                         <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
