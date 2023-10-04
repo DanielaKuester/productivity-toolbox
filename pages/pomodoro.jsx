@@ -1,5 +1,6 @@
 import Image from "next/image"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import Timer from "@/components/Timer";
 
 export default function Pomodoro() {
     const [workTime, setWorkTime] = useState(0);
@@ -39,7 +40,9 @@ export default function Pomodoro() {
                     <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 ml-28 -mb-9 z-10">
                         <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={400} height={400}/>
                     </div>
-                    <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">{workTime}:00</div>
+                    <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">
+                        {<Timer duration={2 * 24 * 60 * 60 * 1000}/>}
+                    </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
                         <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
