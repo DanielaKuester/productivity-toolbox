@@ -13,7 +13,22 @@ const Timer = ({duration}) => {
         }, 1000)
     }, [time]);
 
-    return <div>{time}</div>
+    const getFormattedTime = (milliseconds) => {
+        // Transforms the time from milliseconds to seconds, from seconds to minutes, from minutes to hours and from hours to days.
+        let total_seconds = parseInt(Math.floor(milliseconds / 1000));
+        let total_minutes = parseInt(Math.floor(total_seconds / 60));
+        let total_hours = parseInt(Math.floor(total_minutes / 60));
+        let days = parseInt(Math.floor(total_hours / 24));
+
+        // To make the seconds loop between 59 and 0, divide the total seconds by 60 and only use the remaining part. (Similar pattern for minutes and hours.)
+        let seconds = parseInt(total_seconds % 60);
+        let minutes = parseInt(total_minutes % 60);
+        let hours = parseInt(total_hours % 24);
+
+        return `${days}:${hours}:${minutes}:${seconds}`;
+    };
+
+    return <div>{getFormattedTime(time)}</div>
 }
 
 export default Timer;
