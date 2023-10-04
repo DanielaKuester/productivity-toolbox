@@ -5,19 +5,19 @@ import { useState, useEffect } from "react";
 const Timer = ({ initialDuration }) => {
     const [time, setTime] = useState(initialDuration);
 
-  useEffect(() => {
-    if (initialDuration > 0) {
-      const timerId = setTimeout(() => {
-        setTime(time - 1000);
-      }, 1000);
+    useEffect(() => {
+        if (initialDuration > 0) {
+        const timerId = setTimeout(() => {
+            setTime(time - 1000);
+        }, 1000);
 
-      return () => {
-        clearTimeout(timerId);
-      };
-    } else if (initialDuration === 0) {
-      console.log("The duration is 0.");
-    }
-  }, [initialDuration, time]);
+        return () => {
+            clearTimeout(timerId);
+        };
+        } else if (initialDuration === 0) {
+            console.log("The duration is 0.");
+        }
+    }, [initialDuration, time]);
 
     const getFormattedTime = (milliseconds) => {
         // Transforms the time from milliseconds to seconds, from seconds to minutes, from minutes to hours and from hours to days.
