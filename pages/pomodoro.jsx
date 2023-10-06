@@ -41,6 +41,7 @@ export default function Pomodoro() {
 
     const setTimes = (e) => {
         e.preventDefault();
+        setWorkTime(e.target.firstChild.lastChild.value);
         console.log(`The chosen work time is ${workTime} minutes.\n
         The chosen short break is ${shortBreak} minutes.\n
         The chosen long break is ${longBreak} minutes.`);
