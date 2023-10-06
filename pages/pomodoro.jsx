@@ -6,9 +6,23 @@ export default function Pomodoro() {
     const [workTime, setWorkTime] = useState(0);
     const [shortBreak, setShortBreak] = useState(0);
     const [longBreak, setLongBreak] = useState(0);
+    const [isRunning, setIsRunning] = useState(false);
 
     const handleWorkChange = (e) => {
         setWorkTime(e.target.value);
+    }
+
+    const startTimer = () => {
+        setIsRunning(true);
+    }
+
+    const pauseTimer = () => {
+        setIsRunning(false);
+    }
+
+    const resetTimer = () => {
+        setIsRunning(false);
+        setWorkTime(0);
     }
 
     // Use useEffect to watch for changes in workTime and update the timer
@@ -48,18 +62,36 @@ export default function Pomodoro() {
                     </div>
                     <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">
                         {/* Pass the workTime state variable as initialDuration */}
-                        <Timer initialDuration={workTime * 60 * 1000} />
+                        <Timer
+                            initialDuration={workTime * 60 * 1000}
+                            isRunning={isRunning}
+                        />
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
-                        <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16">Start/Pause</button>
-                        <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16">Stop</button>
-                        <button className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                        focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                        font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16">Reset</button>
+                        <button
+                            onClick={startTimer}
+                            className="text-black bg-blue-300 hover:bg-blue-400 border border-black
+                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                            font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16"
+                        >
+                            Start
+                        </button>
+                        <button
+                            onClick={pauseTimer}
+                            className="text-black bg-blue-300 hover:bg-blue-400 border border-black
+                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                            font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16"
+                        >
+                            Pause
+                        </button>
+                        <button
+                            onClick={resetTimer}
+                            className="text-black bg-blue-300 hover:bg-blue-400 border border-black
+                                focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
+                                font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16"
+                        >
+                            Reset
+                        </button>
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 border-r-0 rounded-bl-3xl text-xl pb-4">
                         <form onSubmit={setTimes}>
