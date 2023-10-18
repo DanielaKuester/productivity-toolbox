@@ -23,7 +23,8 @@ const setTodo = asyncHandler(async (req, res) => {
         taskText: req.body.taskText,
         textHidden: false,
         inputHidden: true,
-        isDone: false
+        isDone: false,
+        isCurrentTask: false
     })
 
     res.status(200).json(todo)

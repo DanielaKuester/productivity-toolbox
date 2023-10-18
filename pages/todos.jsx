@@ -21,7 +21,7 @@ export default function TodoList() {
 
     const addTask = (e) => {
         e.preventDefault();
-        const newTodo = { "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false};
+        const newTodo = { "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false, "isCurrentTask": false};
         axios.post("http://127.0.0.1:5000/api/todos", newTodo)
             .then(response => setTodoList([...todoList, newTodo]))
             .catch(error => {
