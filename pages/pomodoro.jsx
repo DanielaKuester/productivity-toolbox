@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { useState, useEffect } from "react"
 import Timer from "@/components/Timer";
+import axios from "axios";
 
 export default function Pomodoro() {
     const [workTime, setWorkTime] = useState(0);
@@ -8,6 +9,23 @@ export default function Pomodoro() {
     const [longBreak, setLongBreak] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [currentTimer, setCurrentTimer] = useState("work");
+    const [currentTask, setCurrentTask] = useState("Mark a task as the current task in your to-do-list and it will appear here.");
+
+    /*
+     * Fetch the todos data with the useEffect hook, so that the GET request is only made when first loading/rendering the page.
+     * Get the data of the current to-do-task so that its text can be shown in the pomodoro timer under "Current Task:"
+     */
+    useEffect(() => {
+        axios.get("http://127.0.0.1:5000/api/todos")
+            .then((response) => response.data.todos.map((item) => {
+                if (item.isCurrentTask === true) {
+                    setCurrentTask(item.taskText);
+                } else if (item.isCurrentTask === false) {
+                    // Do nothing.
+                }
+            }))
+            .catch((error) => console.log("There was an error:", error));
+    })
 
     const handleWorkChange = (e) => {
         setWorkTime(e.target.value);
@@ -159,7 +177,8 @@ export default function Pomodoro() {
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 rounded-br-3xl p-3 text-xl">
                         <h2 className="mt-1 ml-2 underline">Current Task:</h2>
-                        <p className="mt-1 ml-2">Find out how CSS Grid works best and apply those experimental changes to my pomodoro timer.
+                        <p className="mt-1 ml-2">
+                            {currentTask}
                         </p>
                     </div>
                 </div>
