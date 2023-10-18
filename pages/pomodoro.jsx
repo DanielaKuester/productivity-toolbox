@@ -32,7 +32,7 @@ export default function Pomodoro() {
             startTimer();
         } else if (currentTimer === "shortBreak") {
             console.log("Work again!");
-            setCurrentTimer("Work");
+            setCurrentTimer("work");
             Timer.updateDuration(workTime * 60 * 1000);
             startTimer();
         }
@@ -80,13 +80,12 @@ export default function Pomodoro() {
                         <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={400} height={400}/>
                     </div>
                     <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">
+                        <p>{currentTimer === "work" ? "Work 📝" : "Break 🍵"}</p>
                         {/* Pass the workTime state variable as initialDuration */}
                         <Timer
-                            initialDuration={currentTimer === "Work" ? (workTime * 60 * 1000) : (shortBreak * 60 * 1000)}
+                            initialDuration={currentTimer === "work" ? (workTime * 60 * 1000) : (shortBreak * 60 * 1000)}
                             currentTimer={currentTimer}
                             isRunning={isRunning}
-                            workTime={workTime}
-                            shortBreak={shortBreak}
                             onTimerComplete={handleTimerComplete}
                         />
                     </div>
