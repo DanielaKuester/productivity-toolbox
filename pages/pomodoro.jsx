@@ -66,6 +66,7 @@ export default function Pomodoro() {
                         <Timer
                             initialDuration={workTime * 60 * 1000}
                             isRunning={isRunning}
+                            shortBreak={shortBreak * 60 * 1000}
                         />
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
