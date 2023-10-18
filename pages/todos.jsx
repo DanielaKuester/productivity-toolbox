@@ -58,6 +58,35 @@ export default function TodoList() {
             });
     }
 
+    const markAsCurrentTask = async (e) => {
+        const currentTaskId = e.target.parentNode.parentNode.getAttribute("data-currenttaskid");
+        const myCurrentTask = `http://127.0.0.1:5000/api/todos/${currentTaskId}`;
+        console.log(e.target.parentNode.parentNode);
+        console.log(currentTaskId);
+
+        axios.get(`http://127.0.0.1:5000/api/todos/`)
+        .then((response) => {
+            response.data.todos.map((item) => {
+                if ((item._id === currentTaskId) && item.isCurrentTask === true) {
+                    axios.put(myCurrentTask,
+                        {
+                            isCurrentTask: false,
+                        }
+                    );
+                } else if ((item._id === currentTaskId) && item.isCurrentTask === false) {
+                    axios.put(myCurrentTask,
+                        {
+                            isCurrentTask: true,
+                        }
+                    );
+                }
+            });
+        })
+        .catch(error => {
+            console.error('There was an error', error)
+        });
+    }
+
     // Double click a task to edit it.
     const handleDoubleClick = (e) => {
         const taskID = e.target.getAttribute("data-taskid");
@@ -190,7 +219,9 @@ export default function TodoList() {
                                     <div className="col-span-1">
                                         <button
                                             type="button"
-                                            className={`${row.isCurrentTask ? "text-yellow-400" : "text-white"}`}>
+                                            onClick={markAsCurrentTask}
+                                            data-currenttaskid={row._id}
+                                            className={`text-3xl ${row.isCurrentTask ? "text-yellow-400" : "text-white"}`}>
                                             <FaStar />
                                         </button>
                                     </div>
