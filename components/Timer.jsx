@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-const Timer = ({ initialDuration, isRunning, shortBreak }) => {
+const Timer = ({ initialDuration, isRunning, workTime, shortBreak, currentTimer, onTimerComplete }) => {
     const [time, setTime] = useState(initialDuration);
     
     // ChatGPT helped to rewrite the useEffect hook so that the timer only starts on click.
@@ -14,16 +14,13 @@ const Timer = ({ initialDuration, isRunning, shortBreak }) => {
                 setTime(time - 1000);
             }, 1000);
         } else if (isRunning && time === 0) {
-            console.log("The work time is over! Take a break! =)");
-            timerId = setTimeout(() => {
-                setTime(shortBreak - 1000);
-            }, 1000);
+            onTimerComplete();
         }
   
         return () => {
             clearTimeout(timerId);
         };
-    }, [isRunning, time, initialDuration, shortBreak]);
+    }, [isRunning, time, initialDuration, workTime, shortBreak, currentTimer, onTimerComplete]);
 
     const getFormattedTime = (milliseconds) => {
         // Transforms the time from milliseconds to seconds, from seconds to minutes, from minutes to hours and from hours to days.

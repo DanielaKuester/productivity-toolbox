@@ -7,6 +7,7 @@ export default function Pomodoro() {
     const [shortBreak, setShortBreak] = useState(0);
     const [longBreak, setLongBreak] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
+    const [currentTimer, setCurrentTimer] = useState("work");
 
     const handleWorkChange = (e) => {
         setWorkTime(e.target.value);
@@ -18,6 +19,23 @@ export default function Pomodoro() {
 
     const pauseTimer = () => {
         setIsRunning(false);
+    }
+
+    const handleTimerComplete = () => {
+        setIsRunning(false);
+
+        // Switch between Work and Short Break timers
+        if (currentTimer === "work") {
+            console.log("Take a break!");
+            setCurrentTimer("shortBreak");
+            Timer.updateDuration(shortBreak * 60 * 1000);
+            startTimer();
+        } else if (currentTimer === "shortBreak") {
+            console.log("Work again!");
+            setCurrentTimer("Work");
+            Timer.updateDuration(workTime * 60 * 1000);
+            startTimer();
+        }
     }
 
     const resetTimer = () => {
@@ -64,9 +82,12 @@ export default function Pomodoro() {
                     <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">
                         {/* Pass the workTime state variable as initialDuration */}
                         <Timer
-                            initialDuration={workTime * 60 * 1000}
+                            initialDuration={currentTimer === "Work" ? (workTime * 60 * 1000) : (shortBreak * 60 * 1000)}
+                            currentTimer={currentTimer}
                             isRunning={isRunning}
-                            shortBreak={shortBreak * 60 * 1000}
+                            workTime={workTime}
+                            shortBreak={shortBreak}
+                            onTimerComplete={handleTimerComplete}
                         />
                     </div>
                     <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
