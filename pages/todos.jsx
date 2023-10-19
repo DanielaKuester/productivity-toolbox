@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaTrash, FaPencil, FaStar } from "react-icons/fa6"
+import { FaTrash, FaPencil, FaStar, FaThumbtack } from "react-icons/fa6"
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
@@ -225,8 +225,8 @@ export default function TodoList() {
                                             type="button"
                                             onClick={markAsCurrentTask}
                                             data-currenttaskid={row._id}
-                                            className={`text-3xl ${row.isCurrentTask ? "text-yellow-400" : "text-white"}`}>
-                                            <FaStar />
+                                            className={`text-3xl ${row.isCurrentTask ? "text-indigo-900" : "text-white"}`}>
+                                            <FaThumbtack />
                                         </button>
                                     </div>
                                     <div className="col-span-1">{`${index + 1}.`}</div>
