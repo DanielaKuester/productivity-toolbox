@@ -67,16 +67,20 @@ export default function TodoList() {
         axios.get(`http://127.0.0.1:5000/api/todos/`)
         .then((response) => {
             response.data.todos.map((item) => {
-                if ((item._id === currentTaskId) && item.isCurrentTask === true) {
+                if (item._id === currentTaskId) {
+                    // Toggle the isCurrentTask property of the clicked task.
                     axios.put(myCurrentTask,
                         {
-                            isCurrentTask: false,
+                            isCurrentTask: !item.isCurrentTask,
                         }
                     );
-                } else if ((item._id === currentTaskId) && item.isCurrentTask === false) {
-                    axios.put(myCurrentTask,
+                } else if (item.isCurrentTask === true) {
+                    /* The previously selected current task is the only item where the isCurrentTask property is true.
+                     * Get that item and then use it's ID to set the isCurrentTask propert to false. Now it is not the current task any more.
+                     */
+                    axios.put(`http://127.0.0.1:5000/api/todos/${item._id}`,
                         {
-                            isCurrentTask: true,
+                            isCurrentTask: false,
                         }
                     );
                 }
