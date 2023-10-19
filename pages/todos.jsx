@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { FaTrash, FaPencil } from "react-icons/fa6"
+import { FaTrash, FaPencil, FaStar, FaThumbtack } from "react-icons/fa6"
 
 export default function TodoList() {
     const [todo, setTodo] = useState("");
     const [todoList, setTodoList] = useState([]);
     const [task, setTask] = useState("");
+    const [isCurrentTask, setCurrentTask] = useState(false);
 
     // Fetch the todos data with the useEffect hook, so that the GET request is only made when first loading/rendering the page
     useEffect(() => {
@@ -21,7 +22,7 @@ export default function TodoList() {
 
     const addTask = (e) => {
         e.preventDefault();
-        const newTodo = { "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false};
+        const newTodo = { "taskText": todo, "textHidden": false, "inputHidden": true, "isDone": false, "isCurrentTask": false};
         axios.post("http://127.0.0.1:5000/api/todos", newTodo)
             .then(response => setTodoList([...todoList, newTodo]))
             .catch(error => {
@@ -55,6 +56,39 @@ export default function TodoList() {
             .catch(error => {
                 console.error('There was an error', error)
             });
+    }
+
+    const markAsCurrentTask = async (e) => {
+        const currentTaskId = e.target.parentNode.parentNode.getAttribute("data-currenttaskid");
+        const myCurrentTask = `http://127.0.0.1:5000/api/todos/${currentTaskId}`;
+        console.log(e.target.parentNode.parentNode);
+        console.log(currentTaskId);
+
+        axios.get(`http://127.0.0.1:5000/api/todos/`)
+        .then((response) => {
+            response.data.todos.map((item) => {
+                if (item._id === currentTaskId) {
+                    // Toggle the isCurrentTask property of the clicked task.
+                    axios.put(myCurrentTask,
+                        {
+                            isCurrentTask: !item.isCurrentTask,
+                        }
+                    );
+                } else if (item.isCurrentTask === true) {
+                    /* The previously selected current task is the only item where the isCurrentTask property is true.
+                     * Get that item and then use it's ID to set the isCurrentTask propert to false. Now it is not the current task any more.
+                     */
+                    axios.put(`http://127.0.0.1:5000/api/todos/${item._id}`,
+                        {
+                            isCurrentTask: false,
+                        }
+                    );
+                }
+            });
+        })
+        .catch(error => {
+            console.error('There was an error', error)
+        });
     }
 
     // Double click a task to edit it.
@@ -186,6 +220,15 @@ export default function TodoList() {
                                             data-checkboxid={row._id}
                                         />
                                     </div>
+                                    <div className="col-span-1">
+                                        <button
+                                            type="button"
+                                            onClick={markAsCurrentTask}
+                                            data-currenttaskid={row._id}
+                                            className={`text-3xl ${row.isCurrentTask ? "text-indigo-900" : "text-white"}`}>
+                                            <FaThumbtack />
+                                        </button>
+                                    </div>
                                     <div className="col-span-1">{`${index + 1}.`}</div>
                                     <div onDoubleClick={handleDoubleClick}
                                         className={`col-span-8 ${(row.textHidden ? "hidden" : "")} ${(row.isDone ? "line-through text-gray-300" : "")}`}
@@ -208,7 +251,7 @@ export default function TodoList() {
                                             type="submit"
                                             className="col-span-2 w-full text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                             focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                            font-medium rounded-lg text-2xl px-12 py-1 w-24 text-center ml-5">
+                                            font-medium rounded-lg text-2xl px-8 py-1 w-20 text-center ml-5">
                                             <FaPencil />
                                         </button>
                                     </form>
@@ -217,7 +260,7 @@ export default function TodoList() {
                                         type="button"
                                         className="col-span-1 text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl
                                         focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                        font-medium rounded-lg text-2xl px-9 py-1 h-10 ml-10 w-24 text-center hidden group-hover:block">
+                                        font-medium rounded-lg text-2xl px-9 py-1 h-10 w-20 text-center hidden group-hover:block">
                                         <FaTrash />
                                     </button>
                                 </div>
