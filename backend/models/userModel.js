@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
      * I don't want to add an e-mail address yet. As the app grows, this will also come, but not now (2023-11-02).
     email: {
         type: String,
-        required: [true, 'Please add a email.'],
+        required: [true, 'Please add an email address.'],
         unique: true
     },
     */
