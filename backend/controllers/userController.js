@@ -50,7 +50,29 @@ const registerUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users/login
 // @access  public
 const loginUser = asyncHandler(async (req, res) => {
-    res.json({ message: 'Login User' })
+    const {name, /*email,*/ password} = req.body
+
+    /* Check for user e-mail
+    const user = await User.findOne({email})
+
+     * I don't do that yet because I don't want to register in my app with an e-mail-address.
+     * I'll add this functionality as soon as the app is bigger and I want to be connected with my e-mail-address.
+     */
+
+    // Check for user name
+    const user = await User.findOne({name})
+
+    // The bcrypt's compare function allows me to compare the entered password with the hashed user password.
+    if(user && (await bcrypt.compare(password, user.password))){
+        res.json({
+            _id: user.id,
+            name: user.name,
+            email: user.email
+        })
+    } else {
+        res.status(400)
+        throw new Error('Invalid credentials.')
+    }
 })
 
 // @desc    Get user data
