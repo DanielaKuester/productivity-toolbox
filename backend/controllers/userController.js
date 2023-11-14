@@ -38,7 +38,8 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(201).json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -67,7 +68,8 @@ const loginUser = asyncHandler(async (req, res) => {
         res.json({
             _id: user.id,
             name: user.name,
-            email: user.email
+            email: user.email,
+            token: generateToken(user._id)
         })
     } else {
         res.status(400)
@@ -81,6 +83,17 @@ const loginUser = asyncHandler(async (req, res) => {
 const getMe = asyncHandler(async (req, res) => {
     res.json({ message: 'User data display' })
 })
+
+// Generate JWT (Jason Web Token)
+const generateToken = (id) => {
+    return jwt.sign({id}, process.env.JWT_SECRET, {
+        /* Using an expired Jason Web Token will cause operations to fail. The normal expiration value is between 1200 seconds (= 20 minutes).
+         * The user has to log in again to get a valid token.
+         * Detailed explanation here: https://docs.oracle.com/en/cloud/saas/live-experience/faled/handling-access-token-expiration.html#u30011459
+         */
+        expiresIn: '30d',
+    })
+}
 
 module.exports = {
     registerUser,
