@@ -21,7 +21,8 @@ export default function Home() {
 			</h1>
 			<Image src={"human-sized-todos.svg"} alt={"image of a peeping cat"} width={700} height={700} className="mx-auto"/>
 			<p className="text-center">
-				<a href="https://www.freepik.com/free-vector/personal-goals-checklist-concept-illustration_28766054.htm#page=2&query=todo%20list&position=6&from_view=search&track=ais">
+				{/* Free vector graphic from freepic.com: https://www.freepik.com/free-vector/personal-goals-checklist-concept-illustration_28766054.htm */}
+				<a href="https://www.freepik.com/free-vector/personal-goals-checklist-concept-illustration_28766054.htm">
 					Image by storyset
 				</a> on Freepik
 			</p>
