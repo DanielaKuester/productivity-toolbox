@@ -6,7 +6,7 @@ const Todo = require('../models/todoModel')
 // @route   GET /api/todos
 // @access  Private ==> access only through login/authentication
 const getTodos = asyncHandler(async (req, res) => {
-    const todos = await Todo.find({})
+    const todos = await Todo.find({ user: req.user.id })
     res.status(200).json({ todos })
 })
 
@@ -24,7 +24,8 @@ const setTodo = asyncHandler(async (req, res) => {
         textHidden: false,
         inputHidden: true,
         isDone: false,
-        isCurrentTask: false
+        isCurrentTask: false,
+        user: req.user.id
     })
 
     res.status(200).json(todo)
