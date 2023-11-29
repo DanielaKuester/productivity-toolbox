@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler') // Add express async handler for async requests
 
 const Todo = require('../models/todoModel')
+const User = require('../models/userModel')
 
 // @desc    Get todos
 // @route   GET /api/todos
@@ -42,6 +43,22 @@ const updateTodo = asyncHandler(async (req, res) => {
         throw new Error('Todo not found')
     }
 
+    const user = await User.findById(req.user.id)
+
+    // Check if the user exists
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    /* Make sure that the user ID of the logged in user matches the user ID in the todo item.
+     * There is a user object in the todo item that has to be transformed to a string. Afterwards, it can be compared to the user ID string.
+     */
+    if (todo.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorised')
+    }
+
     const updatedTodo = await Todo.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
     })
@@ -59,6 +76,23 @@ const deleteTodo = asyncHandler(async (req, res) => {
       res.status(400)
       throw new Error('Todo not found')
     }
+
+    const user = await User.findById(req.user.id)
+
+    // Check if the user exists
+    if (!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    /* Make sure that the user ID of the logged in user matches the user ID in the todo item.
+     * There is a user object in the todo item that has to be transformed to a string. Afterwards, it can be compared to the user ID string.
+     */
+    if (todo.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorised')
+    }
+
   
     todo.deleteOne()
   
