@@ -21,13 +21,13 @@ export default function Home() {
 					Boost Your Results with Your Personal Productivity Toolbox
 				</h1>
 				<Image src={"human-sized-todos.svg"} alt={"image of a peeping cat"} width={700} height={700} className="mx-auto"/>
-				<p className="text-center">
+				<p className="text-center -mt-5">
 					{/* Free vector graphic from freepic.com: https://www.freepik.com/free-vector/personal-goals-checklist-concept-illustration_28766054.htm */}
 					<a href="https://www.freepik.com/free-vector/personal-goals-checklist-concept-illustration_28766054.htm">
 						Image by storyset
 					</a> on Freepik
 				</p>
-				<div>
+				<div className="mt-5">
 					<p className="text-center">
 						<Link href="/todos">My To Do List</Link>
 					</p>
