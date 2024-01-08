@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '@/components/Header'
 
-function login() {
+function Login() {
 	return (
 		<div>
 			<Header/>
@@ -12,4 +12,4 @@ function login() {
 	)
 }
 
-export default login
+export default Login

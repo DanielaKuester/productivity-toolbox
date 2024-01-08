@@ -1,7 +1,7 @@
 import React from 'react'
 import Header from '@/components/Header'
 
-function dashboard() {
+function Dashboard() {
 	return (
 		<div>
 			<Header/>
@@ -12,4 +12,4 @@ function dashboard() {
 	)
 }
 
-export default dashboard
+export default Dashboard

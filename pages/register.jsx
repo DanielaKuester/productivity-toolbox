@@ -1,7 +1,15 @@
 import React from 'react'
 import Header from '@/components/Header'
+import { useState, useEffect } from 'react'
 
-function register() {
+function Register() {
+	const [formData, setFormData] = useState({
+		name: '',
+		email: '',
+		password: '',
+		password2: ''
+	})
+
 	return (
 		<div>
 			<Header/>
@@ -12,4 +20,4 @@ function register() {
 	)
 }
 
-export default register
+export default Register
