@@ -3,6 +3,10 @@ import Header from '@/components/Header'
 import { useState, useEffect } from 'react'
 import { FaUser } from 'react-icons/fa'
 
+/* The register, login and dashboard pages are made with the help of the following MERN stack tutorial by Traversy Media:
+ * https://www.youtube.com/watch?v=mvfsC66xqj0&list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm&index=4
+ */
+
 function Register() {
 	const [formData, setFormData] = useState({
 		name: "",
@@ -13,7 +17,21 @@ function Register() {
 
 	const { name, email, password, password2 } = formData;
 
-	const onChange = () => {}
+	/* The form data is set here to an object. A function with the previous state as an argument is passed to the setFormData function.
+	 * The part that is right from the arrow (with the curly braces) is wrapped into paranthesis to get a whole object.
+	 * This object contains the name, e-mail-adress and password. Different elements or objects for each category are unnecessary.
+	 */
+	const onChange = (e) => {
+		// The spread operator is used to spread across the previous state to get all the fields. The name and value of the fields serve as the name and value properties of the new object.
+		setFormData((previousState) => ({
+			...previousState,
+			[e.target.name]: e.target.value,
+		}))
+	}
+
+	const onSubmit = (e) => {
+		e.preventDefault()
+	}
 
 	return (
 		<>
@@ -26,7 +44,7 @@ function Register() {
 				<p className="text-center text-2xl mb-6 font-bold text-gray-500">Please create an account.</p>
 			</section>
 			<section className="form flex">
-				<form className="mx-auto">
+				<form onSubmit={onSubmit} className="mx-auto">
 					<div className="form-group">
 						<input
 							type="text"
