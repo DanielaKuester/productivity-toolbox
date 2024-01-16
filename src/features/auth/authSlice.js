@@ -35,18 +35,21 @@ export const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        builder.addCase(register.fulfilled, (state, action) => {
-            state.user = action.payload;
-            state.isSuccess = true;
-            state.isLoading = false;
-        });
         builder.addCase(register.pending, (state) => {
             state.isLoading = true;
         });
-        builder.addCase(register.rejected, (state, action) => {
-            state.isError = true;
+        builder.addCase(register.fulfilled, (state, action) => {
             state.isLoading = false;
+            state.isSuccess = true;
+            state.user = action.payload;
+        });
+        /* state.message = action.payload sets the payload as the error message if an error occurs
+         * state.user = null sets the user to null, because something went wrong during the registration process */
+        builder.addCase(register.rejected, (state, action) => {
+            state.isLoading = false;
+            state.isError = true;
             state.message = action.payload;
+            state.user = null;
         });
     }
 })
