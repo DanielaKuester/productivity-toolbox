@@ -1,7 +1,11 @@
 import React from 'react'
 import Header from '@/components/Header'
 import { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
+import { register, reset } from '@/src/features/auth/authSlice'
+import { redirect } from 'next/dist/server/api-utils'
 
 /* The register, login and dashboard pages are made with the help of the following MERN stack tutorial by Traversy Media:
  * https://www.youtube.com/watch?v=mvfsC66xqj0&list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm&index=4
@@ -17,6 +21,26 @@ function Register() {
 
 	const { name, email, password, password2 } = formData;
 
+	const dispatch = useDispatch();
+
+	const {user, isLoading, isError, isSuccess, message} = useSelector(
+		(state) => state.auth
+	)
+
+	useEffect(() => {
+		if (isError) {
+			toast.error(message);
+		}
+
+		if (isSuccess || user) {
+			redirect('/');
+		}
+
+		// Here, the reset function from the authSlice is dispatched to reset the values of isError, isSuccess and message
+		dispatch(reset());
+
+	}, [user, isError, isSuccess, message, dispatch])
+
 	/* The form data is set here to an object. A function with the previous state as an argument is passed to the setFormData function.
 	 * The part that is right from the arrow (with the curly braces) is wrapped into paranthesis to get a whole object.
 	 * This object contains the name, e-mail-adress and password. Different elements or objects for each category are unnecessary.
@@ -30,7 +54,19 @@ function Register() {
 	}
 
 	const onSubmit = (e) => {
-		e.preventDefault()
+		e.preventDefault();
+
+		if (password != password2) {
+			toast.error("Passwords do not match");
+		} else {
+			const userData = {
+				name,
+				/*email,*/
+				password
+			}
+
+			dispatch(register(userData))
+		}
 	}
 
 	return (
