@@ -31,7 +31,7 @@ function Header() {
 							</Link>
 						</li>
 						<li>
-							<button className="btn flex items-center p-2" onClick={onLogout}>
+							<button className="flex items-center p-2" onClick={onLogout}>
 								<FaSignOutAlt /><span className="pl-1 pr-2">Logout</span>
 							</button>
 						</li>
