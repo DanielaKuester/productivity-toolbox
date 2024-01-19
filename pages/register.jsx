@@ -5,7 +5,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toast } from 'react-toastify'
 import { FaUser } from 'react-icons/fa'
 import { register, reset } from '@/src/features/auth/authSlice'
-import { redirect } from 'next/dist/server/api-utils'
+import { useRouter } from 'next/router'
+import Spinner from '@/components/Spinner'
 
 /* The register, login and dashboard pages are made with the help of the following MERN stack tutorial by Traversy Media:
  * https://www.youtube.com/watch?v=mvfsC66xqj0&list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm&index=4
@@ -21,6 +22,8 @@ function Register() {
 
 	const { name, email, password, password2 } = formData;
 
+	const router = useRouter();
+
 	const dispatch = useDispatch();
 
 	const {user, isLoading, isError, isSuccess, message} = useSelector(
@@ -32,14 +35,14 @@ function Register() {
 			toast.error(message);
 		}
 
-		if (isSuccess || user) {
-			redirect('/');
+		if (isSuccess /*|| user*/) {
+			router.push('/');
 		}
 
 		// Here, the reset function from the authSlice is dispatched to reset the values of isError, isSuccess and message
 		dispatch(reset());
 
-	}, [user, isError, isSuccess, message, dispatch])
+	}, [user, isError, isSuccess, message, dispatch, router])
 
 	/* The form data is set here to an object. A function with the previous state as an argument is passed to the setFormData function.
 	 * The part that is right from the arrow (with the curly braces) is wrapped into paranthesis to get a whole object.
@@ -67,6 +70,10 @@ function Register() {
 
 			dispatch(register(userData))
 		}
+	}
+
+	if(isLoading) {
+		return <Spinner />
 	}
 
 	return (
