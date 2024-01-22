@@ -2,6 +2,11 @@ import React from 'react'
 import Header from '@/components/Header'
 import { useState, useEffect } from 'react'
 import { FaSignInAlt } from 'react-icons/fa'
+import { useSelector, useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
+import { login, reset } from '@/src/features/auth/authSlice'
+import Spinner from '@/components/Spinner'
 
 /* The register, login and dashboard pages are made with the help of the following MERN stack tutorial by Traversy Media:
  * https://www.youtube.com/watch?v=mvfsC66xqj0&list=PLillGF-RfqbbQeVSccR9PGKHzPJSWqcsm&index=4
@@ -16,6 +21,31 @@ function Login() {
 
 	const { name, /*email,*/ password } = formData;
 
+	const router = useRouter();
+	const dispatch = useDispatch();
+
+	const {user, isLoading, isError, isSuccess, message} = useSelector(
+		(state) => state.auth
+	)
+
+	useEffect(() => {
+		if (isError) {
+			toast.error(message);
+		}
+
+		if (isSuccess || user) {
+			router.push('/');
+		}
+
+		// Here, the reset function from the authSlice is dispatched to reset the values of isError, isSuccess and message
+		dispatch(reset());
+
+	}, [user, isError, isSuccess, message, dispatch, router])
+
+	if (isLoading) {
+		return <Spinner />
+	}
+
 	/* The form data is set here to an object. A function with the previous state as an argument is passed to the setFormData function.
 	 * The part that is right from the arrow (with the curly braces) is wrapped into paranthesis to get a whole object.
 	 * This object contains the name, e-mail-adress and password. Different elements or objects for each category are unnecessary.
@@ -29,7 +59,16 @@ function Login() {
 	}
 
 	const onSubmit = (e) => {
-		e.preventDefault()
+		e.preventDefault();
+
+		const userData = {
+			// Normally eMmil and password, but I'll integrate email addresses later
+			name,
+			/*email,*/
+			password
+		}
+
+		dispatch(login(userData));
 	}
 
 	return (
