@@ -43,10 +43,8 @@ const updateTodo = asyncHandler(async (req, res) => {
         throw new Error('Todo not found')
     }
 
-    const user = await User.findById(req.user.id)
-
     // Check if the user exists
-    if (!user) {
+    if (!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
@@ -54,7 +52,7 @@ const updateTodo = asyncHandler(async (req, res) => {
     /* Make sure that the user ID of the logged in user matches the user ID in the todo item.
      * There is a user object in the todo item that has to be transformed to a string. Afterwards, it can be compared to the user ID string.
      */
-    if (todo.user.toString() !== user.id) {
+    if (todo.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorised')
     }
@@ -77,10 +75,8 @@ const deleteTodo = asyncHandler(async (req, res) => {
       throw new Error('Todo not found')
     }
 
-    const user = await User.findById(req.user.id)
-
     // Check if the user exists
-    if (!user) {
+    if (!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
@@ -88,7 +84,7 @@ const deleteTodo = asyncHandler(async (req, res) => {
     /* Make sure that the user ID of the logged in user matches the user ID in the todo item.
      * There is a user object in the todo item that has to be transformed to a string. Afterwards, it can be compared to the user ID string.
      */
-    if (todo.user.toString() !== user.id) {
+    if (todo.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorised')
     }
