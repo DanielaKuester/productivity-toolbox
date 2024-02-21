@@ -4,7 +4,7 @@ import Timer from "@/components/Timer";
 import axios from "axios";
 
 export default function Pomodoro() {
-    const [workTime, setWorkTime] = useState(0);
+    const [workTime, setWorkTime] = useState(20);
     const [shortBreak, setShortBreak] = useState(0);
     const [longBreak, setLongBreak] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
@@ -32,7 +32,13 @@ export default function Pomodoro() {
     }
 
     const startTimer = () => {
-        setIsRunning(true);
+        if (workTime === 0) {
+            alert("Set a valid work time (bigger than 0).");
+            setIsRunning(false);
+        }
+        else if (workTime > 0) {
+            setIsRunning(true);
+        }
     }
 
     const pauseTimer = () => {
@@ -58,7 +64,8 @@ export default function Pomodoro() {
 
     const resetTimer = () => {
         setIsRunning(false);
-        setWorkTime(0);
+        setWorkTime(20);
+        setCurrentTimer("work");
     }
 
     // Use useEffect to watch for changes in workTime and update the timer
