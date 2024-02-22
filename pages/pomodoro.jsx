@@ -57,12 +57,12 @@ export default function Pomodoro() {
             console.log("Take a break!");
             setCurrentTimer("shortBreak");
             Timer.updateDuration(shortBreak * 60 * 1000);
-            startTimer();
+            setIsRunning(true);
         } else if (currentTimer === "shortBreak") {
             console.log("Work again!");
             setCurrentTimer("work");
             Timer.updateDuration(workTime * 60 * 1000);
-            startTimer();
+            setIsRunning(true);
         }
     }
 
