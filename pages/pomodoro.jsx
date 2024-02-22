@@ -5,8 +5,13 @@ import axios from "axios";
 
 export default function Pomodoro() {
     const [workTime, setWorkTime] = useState(20);
-    const [shortBreak, setShortBreak] = useState(0);
-    const [longBreak, setLongBreak] = useState(0);
+    const [shortBreak, setShortBreak] = useState(5);
+    const [longBreak, setLongBreak] = useState(10);
+    const [pomodoroTimes, setPomodoroTimes] = useState({
+        workTime: 20,
+        shortBreak: 5,
+        longBreak: 10
+    })
     const [isRunning, setIsRunning] = useState(false);
     const [currentTimer, setCurrentTimer] = useState("work");
     const [currentTask, setCurrentTask] = useState("Mark a task as the current task in your to-do-list and it will appear here.");
@@ -35,8 +40,7 @@ export default function Pomodoro() {
         if (workTime === 0) {
             alert("Set a valid work time (bigger than 0).");
             setIsRunning(false);
-        }
-        else if (workTime > 0) {
+        } else if (workTime > 0) {
             setIsRunning(true);
         }
     }
@@ -71,8 +75,8 @@ export default function Pomodoro() {
     // Use useEffect to watch for changes in workTime and update the timer
     useEffect(() => {
         // Update the timer when workTime changes
-        Timer.updateDuration(workTime * 60 * 1000);
-    }, [workTime]);
+        Timer.updateDuration(pomodoroTimes.workTime * 60 * 1000);
+    }, [pomodoroTimes.workTime]);
 
     const handleShortBreakChange = (e) => {
         setShortBreak(e.target.value);
@@ -84,10 +88,14 @@ export default function Pomodoro() {
 
     const setTimes = (e) => {
         e.preventDefault();
-        setWorkTime(e.target.firstChild.lastChild.value);
-        console.log(`The chosen work time is ${workTime} minutes.\n
-        The chosen short break is ${shortBreak} minutes.\n
-        The chosen long break is ${longBreak} minutes.`);
+        /* By clicking on the "Set times" button, the user sets all the pomdoro times: work time, short break, long break.
+         * After these times are set, the user can start the timer. The default times are defined in the "pomdoroTimes" state.
+         */
+        setPomodoroTimes({
+            workTime: workTime,
+            shortBreak: shortBreak,
+            longBreak: longBreak,
+        })
     }
 
     return(
@@ -108,7 +116,7 @@ export default function Pomodoro() {
                         <p>{currentTimer === "work" ? "Work 📝" : "Break 🍵"}</p>
                         {/* Pass the workTime state variable as initialDuration */}
                         <Timer
-                            initialDuration={currentTimer === "work" ? (workTime * 60 * 1000) : (shortBreak * 60 * 1000)}
+                            initialDuration={currentTimer === "work" ? (pomodoroTimes.workTime * 60 * 1000) : (pomodoroTimes.shortBreak * 60 * 1000)}
                             currentTimer={currentTimer}
                             isRunning={isRunning}
                             onTimerComplete={handleTimerComplete}
@@ -147,6 +155,7 @@ export default function Pomodoro() {
                                 <input
                                     type="number"
                                     min="1" max="180"
+                                    placeholder="20"
                                     onChange={handleWorkChange}
                                     className="float-right pl-2 mr-2 w-24 border border-black"
                                 >
@@ -158,6 +167,7 @@ export default function Pomodoro() {
                                     type="number"
                                     min="1"
                                     max="180"
+                                    placeholder="5"
                                     onChange={handleShortBreakChange}
                                     className="float-right pl-2 mr-2 w-24 border border-black"
                                 >
@@ -169,6 +179,7 @@ export default function Pomodoro() {
                                     type="number"
                                     min="1"
                                     max="180"
+                                    placeholder="10"
                                     onChange={handleLongBreakChange}
                                     className="float-right pl-2 mr-2 w-24 border border-black"
                                 >
