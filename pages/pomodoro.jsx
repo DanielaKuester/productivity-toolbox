@@ -8,9 +8,9 @@ export default function Pomodoro() {
     const [shortBreak, setShortBreak] = useState(5);
     const [longBreak, setLongBreak] = useState(10);
     const [pomodoroTimes, setPomodoroTimes] = useState({
-        workTime: 20,
-        shortBreak: 5,
-        longBreak: 10
+        workTimePomodoro: 20,
+        shortBreakPomodoro: 5,
+        longBreakPomodoro: 10
     })
     const [isRunning, setIsRunning] = useState(false);
     const [currentTimer, setCurrentTimer] = useState("work");
@@ -67,16 +67,14 @@ export default function Pomodoro() {
     }
 
     const resetTimer = () => {
-        setIsRunning(false);
-        setWorkTime(20);
-        setCurrentTimer("work");
+        console.log("You clicked the reset button.");
     }
 
     // Use useEffect to watch for changes in workTime and update the timer
     useEffect(() => {
         // Update the timer when workTime changes
-        Timer.updateDuration(pomodoroTimes.workTime * 60 * 1000);
-    }, [pomodoroTimes.workTime]);
+        Timer.updateDuration(pomodoroTimes.workTimePomodoro * 60 * 1000);
+    }, [pomodoroTimes.workTimePomodoro]);
 
     const handleShortBreakChange = (e) => {
         setShortBreak(e.target.value);
@@ -92,9 +90,9 @@ export default function Pomodoro() {
          * After these times are set, the user can start the timer. The default times are defined in the "pomdoroTimes" state.
          */
         setPomodoroTimes({
-            workTime: workTime,
-            shortBreak: shortBreak,
-            longBreak: longBreak,
+            workTimePomodoro: workTime,
+            shortBreakPomodoro: shortBreak,
+            longBreakPomodoro: longBreak,
         })
     }
 
@@ -116,7 +114,7 @@ export default function Pomodoro() {
                         <p>{currentTimer === "work" ? "Work 📝" : "Break 🍵"}</p>
                         {/* Pass the workTime state variable as initialDuration */}
                         <Timer
-                            initialDuration={currentTimer === "work" ? (pomodoroTimes.workTime * 60 * 1000) : (pomodoroTimes.shortBreak * 60 * 1000)}
+                            initialDuration={currentTimer === "work" ? (pomodoroTimes.workTimePomodoro * 60 * 1000) : (pomodoroTimes.shortBreakPomodoro * 60 * 1000)}
                             currentTimer={currentTimer}
                             isRunning={isRunning}
                             onTimerComplete={handleTimerComplete}
