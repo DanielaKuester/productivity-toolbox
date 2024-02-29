@@ -67,7 +67,7 @@ export default function Pomodoro() {
     }
 
     const resetTimer = () => {
-        console.log("You clicked the reset button.");
+        Timer.updateDuration(workTime * 60 * 1000);
     }
 
     // Use useEffect to watch for changes in workTime and update the timer
