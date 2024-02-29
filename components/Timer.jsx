@@ -7,10 +7,10 @@ const Timer = ({ initialDuration, isRunning, currentTimer, onTimerComplete }) =>
     
     // ChatGPT helped to rewrite the useEffect hook so that the timer only starts on click.
     useEffect(() => {
-        let timerId;
+        let myTimer;
         
         if (isRunning && time > 0) {
-            timerId = setTimeout(() => {
+            myTimer = setTimeout(() => {
                 setTime(time - 1000);
             }, 1000);
         } else if (isRunning && time === 0) {
@@ -20,7 +20,7 @@ const Timer = ({ initialDuration, isRunning, currentTimer, onTimerComplete }) =>
         }
   
         return () => {
-            clearTimeout(timerId);
+            clearTimeout(myTimer);
         };
     }, [isRunning, time, initialDuration, currentTimer, onTimerComplete]);
 
