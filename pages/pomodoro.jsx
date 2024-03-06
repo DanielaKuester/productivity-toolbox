@@ -1,100 +1,20 @@
-import Image from "next/image"
-import { useState, useEffect } from "react"
-import Timer from "@/components/Timer";
-import axios from "axios";
+import { useState } from "react";
 
-export default function Pomodoro() {
-    const [workTime, setWorkTime] = useState(20);
-    const [shortBreak, setShortBreak] = useState(5);
-    const [longBreak, setLongBreak] = useState(10);
-    const [pomodoroTimes, setPomodoroTimes] = useState({
-        workTimePomodoro: 20,
-        shortBreakPomodoro: 5,
-        longBreakPomodoro: 10
-    })
-    const [isRunning, setIsRunning] = useState(false);
-    const [currentTimer, setCurrentTimer] = useState("work");
-    const [currentTask, setCurrentTask] = useState("Mark a task as the current task in your to-do-list and it will appear here.");
+const Pomodoro = () => {
+    const [myTime, setMyTime] = useState(3 * 60);
+
+    const countDown = (timeInSeconds) => {
+        setMyTime(timeInSeconds - 1);
+    }
 
     /*
-     * Fetch the todos data with the useEffect hook, so that the GET request is only made when first loading/rendering the page.
-     * Get the data of the current to-do-task so that its text can be shown in the pomodoro timer under "Current Task:"
+     * The setTimeout function takes 2 or more arguments.
+     * Argument 1: The callback function that you want to call in the setTimeout function.
+     * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
+     * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
+     * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
      */
-    useEffect(() => {
-        axios.get("http://127.0.0.1:5000/api/todos")
-            .then((response) => response.data.todos.map((item) => {
-                if (item.isCurrentTask === true) {
-                    setCurrentTask(item.taskText);
-                } else if (item.isCurrentTask === false) {
-                    // Do nothing.
-                }
-            }))
-            .catch((error) => console.log("There was an error:", error));
-    })
-
-    const handleWorkChange = (e) => {
-        setWorkTime(e.target.value);
-    }
-
-    const startTimer = () => {
-        if (workTime === 0) {
-            alert("Set a valid work time (bigger than 0).");
-            setIsRunning(false);
-        } else if (workTime > 0) {
-            setIsRunning(true);
-        }
-    }
-
-    const pauseTimer = () => {
-        setIsRunning(false);
-    }
-
-    const handleTimerComplete = () => {
-        setIsRunning(false);
-
-        // Switch between Work and Short Break timers
-        if (currentTimer === "work") {
-            console.log("Take a break!");
-            setCurrentTimer("shortBreak");
-            Timer.updateDuration(shortBreak * 60 * 1000);
-            setIsRunning(true);
-        } else if (currentTimer === "shortBreak") {
-            console.log("Work again!");
-            setCurrentTimer("work");
-            Timer.updateDuration(workTime * 60 * 1000);
-            setIsRunning(true);
-        }
-    }
-
-    const resetTimer = () => {
-        Timer.updateDuration(workTime * 60 * 1000);
-    }
-
-    // Use useEffect to watch for changes in workTime and update the timer
-    useEffect(() => {
-        // Update the timer when workTime changes
-        Timer.updateDuration(pomodoroTimes.workTimePomodoro * 60 * 1000);
-    }, [pomodoroTimes.workTimePomodoro]);
-
-    const handleShortBreakChange = (e) => {
-        setShortBreak(e.target.value);
-    }
-
-    const handleLongBreakChange = (e) => {
-        setLongBreak(e.target.value);
-    }
-
-    const setTimes = (e) => {
-        e.preventDefault();
-        /* By clicking on the "Set times" button, the user sets all the pomdoro times: work time, short break, long break.
-         * After these times are set, the user can start the timer. The default times are defined in the "pomdoroTimes" state.
-         */
-        setPomodoroTimes({
-            workTimePomodoro: workTime,
-            shortBreakPomodoro: shortBreak,
-            longBreakPomodoro: longBreak,
-        })
-    }
+    setTimeout(countDown, 1000, myTime);
 
     return(
         <>
@@ -102,103 +22,14 @@ export default function Pomodoro() {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="min-h-screen bg-gradient-to-br from-green-300 via-blue-400 to-purple-500">
+            <div className="min-h-screen">
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
-                <div className="grid grid-cols-6 grid-rows-10 mx-auto sd:w-full md:w-1/2 lg:w-1/3">
-                    <div className="bg-transparent min-h-[60px] border border-0 col-span-6 text-center justify-center text-8xl pt-1 p-3 ml-28 -mb-9 z-10">
-                        <Image src={"Peeking-Cat.svg"} alt={"image of a peeping cat"} width={400} height={400}/>
-                    </div>
-                    <div className="bg-white min-h-[60px] border border-black col-span-6 text-center justify-center text-8xl pt-1 p-3 -mt-32 rounded-t-3xl">
-                        <p>{currentTimer === "work" ? "Work 📝" : "Break 🍵"}</p>
-                        {/* Pass the workTime state variable as initialDuration */}
-                        <Timer
-                            initialDuration={currentTimer === "work" ? (pomodoroTimes.workTimePomodoro * 60 * 1000) : (pomodoroTimes.shortBreakPomodoro * 60 * 1000)}
-                            currentTimer={currentTimer}
-                            isRunning={isRunning}
-                            onTimerComplete={handleTimerComplete}
-                        />
-                    </div>
-                    <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-6 justify-between">
-                        <button
-                            onClick={startTimer}
-                            className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                            font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16"
-                        >
-                            Start
-                        </button>
-                        <button
-                            onClick={pauseTimer}
-                            className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                            focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                            font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16"
-                        >
-                            Pause
-                        </button>
-                        <button
-                            onClick={resetTimer}
-                            className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                                focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                font-medium text-2xl px-5 py-2 text-center h-12 m-3 ml-8 w-40 h-16"
-                        >
-                            Reset
-                        </button>
-                    </div>
-                    <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 border-r-0 rounded-bl-3xl text-xl pb-4">
-                        <form onSubmit={setTimes}>
-                            <div className="m-3 ml-5 mt-4">
-                                <label className="mr-1">Work (in min):</label>
-                                <input
-                                    type="number"
-                                    min="1" max="180"
-                                    placeholder="20"
-                                    onChange={handleWorkChange}
-                                    className="float-right pl-2 mr-2 w-24 border border-black"
-                                >
-                                </input>
-                            </div>
-                            <div className="m-3 ml-5">
-                                <label>Short Break (in min):</label>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="180"
-                                    placeholder="5"
-                                    onChange={handleShortBreakChange}
-                                    className="float-right pl-2 mr-2 w-24 border border-black"
-                                >
-                                </input>
-                            </div>
-                            <div className="m-3 ml-5">
-                                <label>Long Break (in min):</label>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    max="180"
-                                    placeholder="10"
-                                    onChange={handleLongBreakChange}
-                                    className="float-right pl-2 mr-2 w-24 border border-black"
-                                >
-                                </input>
-                            </div>
-                            <button type="submit"
-                                className="text-black bg-blue-300 hover:bg-blue-400 border border-black
-                                focus:ring-4 focus:outline-none focus:ring-blue-200 dark:focus:ring-blue-500
-                                font-medium text-2xl px-5 py-2 ml-5 text-center h-12 m-3 w-40 h-16">
-                                Set times
-                            </button>
-                        </form>
-                    </div>
-                    <div className="bg-blue-100 min-h-[60px] border border-black border-t-0 col-span-3 rounded-br-3xl p-3 text-xl">
-                        <h2 className="mt-1 ml-2 underline">Current Task:</h2>
-                        <p className="mt-1 ml-2">
-                            {currentTask}
-                        </p>
-                    </div>
-                </div>
+                <p className="text-8xl text-center">{myTime}</p>
             </div>
         </>
     )
 }
+
+export default Pomodoro;
