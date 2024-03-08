@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(4 * 24 * 60 * 60);
+    const [myTime, setMyTime] = useState(3650 * 24 * 60 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -14,6 +14,13 @@ const Pomodoro = () => {
     const allMinutes = Math.floor(allSeconds / 60);
     const allHours = Math.floor(allMinutes / 60 );
     const allDays = Math.floor(allHours / 24);
+    const allYears = Math.floor(allDays / 365)
+
+    const seconds = allSeconds % 60;
+    const minutes = allMinutes % 60;
+    const hours = allHours % 24;
+    const days = allDays % 365;
+    const years = allYears;
 
     const countDown = (timeInSeconds) => {
         setMyTime(timeInSeconds - 1);
@@ -38,10 +45,7 @@ const Pomodoro = () => {
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
-                <p className="text-8xl text-center">{`All days: ${allDays}`}</p>
-                <p className="text-8xl text-center">{`All hours: ${allHours}`}</p>
-                <p className="text-8xl text-center">{`All minutes: ${allMinutes}`}</p>
-                <p className="text-8xl text-center">{`All seconds: ${allSeconds}`}</p>
+                <p className="text-8xl text-center">{`${years} : ${days} : ${hours} : ${minutes} : ${seconds}`}</p>
             </div>
         </>
     )
