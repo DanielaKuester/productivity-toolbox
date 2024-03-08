@@ -1,16 +1,19 @@
 import { useState } from "react";
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(3 * 24 * 60 * 60);
+    const [myTime, setMyTime] = useState(4 * 24 * 60 * 60);
 
+    /*
+     * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
+     * To round properly, I CANNOT use Math.round(), because this method rounds up OR down depending on the nearest number.
+     * When I use Math.round() and take 3 minutes as the timespan, the timer still shows the full 3 minutes all the time until 2 minutes and 30 seconds. Then it starts to round down.
+     * I have to round with Math.floor(), because this method always rounds DOWN to the next integer that is less or the same as a given number.
+     * When I use Math.floor() and take 3 minutes as the timespan, the timer immediatly rounds down to the 2 minutes after 1 second has passed.
+     */
     const allSeconds = myTime;
-    console.log(allSeconds);
-    const allMinutes = parseInt(Math.floor(allSeconds / 60));
-    console.log("minutes: " + allMinutes);
-    const allHours = parseInt(Math.floor(allMinutes / 60 ));
-    console.log("hours: " + allHours);
-    const allDays = parseInt(Math.floor(allHours / 24));
-    console.log("days: " + allDays);
+    const allMinutes = Math.floor(allSeconds / 60);
+    const allHours = Math.floor(allMinutes / 60 );
+    const allDays = Math.floor(allHours / 24);
 
     const countDown = (timeInSeconds) => {
         setMyTime(timeInSeconds - 1);
