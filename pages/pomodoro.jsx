@@ -1,4 +1,5 @@
 import { useState } from "react";
+import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
     const [myTime, setMyTime] = useState(24 * 60 * 60);
@@ -49,6 +50,7 @@ const Pomodoro = () => {
                     Pomodoro Timer
                 </h1>
                 <p className="text-8xl text-center">{`${hours}:${minutes}:${seconds}`}</p>
+                <p className={`${pomodoroStyles.paragraph} text-center mt-10`}>This is some text to test this paragraph.</p>
             </div>
         </>
     )
