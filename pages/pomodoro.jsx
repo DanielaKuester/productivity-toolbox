@@ -45,12 +45,45 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="min-h-screen">
+            <div className="min-h-screen bg-purple-600">
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
-                <p className="text-8xl text-center">{`${hours}:${minutes}:${seconds}`}</p>
-                <p className={`${pomodoroStyles.paragraph} text-center mt-10`}>This is some text to test this paragraph.</p>
+                {/* <p className="text-8xl text-center">{`${hours}:${minutes}:${seconds}`}</p> */}
+                {/* <p className={`${pomodoroStyles.paragraph} ${pomodoroStyles.mytext} text-center mt-10`}>This is some text to test this paragraph.</p> */}
+                <div className="">
+                    <svg className="bg-blue-300 mx-auto mt-10" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
+                        {/* The circumference of a circle is 2π*r, so in this case it is 2π * 250 = ~1571 */}
+                        <circle
+                            id="gray-circle"
+                            className={pomodoroStyles.circle}
+                            r="250"
+                            cx="300"
+                            cy="300"
+                            fill="transparent"
+                            stroke="gray"
+                            stroke-width="10"
+                            stroke-opacity="0.2"
+                            strokeDasharray={1571}
+                            strokeDashoffset={0}
+                        />
+                        <circle
+                            id="green-circle"
+                            className={pomodoroStyles.circle}
+                            r="250"
+                            cx="300"
+                            cy="300"
+                            fill="transparent"
+                            stroke="green"
+                            stroke-opacity="0.6"
+                            stroke-width="10"
+                            strokeDasharray={1571}
+                            strokeDashoffset={20}
+                            transform="translate(0 0), rotate(270 300 300)"
+                        />
+                        <text className="text-8xl" x="300" y="400" text-anchor="middle" fill="black">{`${hours}:${minutes}:${seconds}`}</text>
+                    </svg>
+                </div>
             </div>
         </>
     )
