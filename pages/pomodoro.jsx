@@ -56,7 +56,6 @@ const Pomodoro = () => {
                         {/* The circumference of a circle is 2π*r, so in this case it is 2π * 250 = ~1571 */}
                         <circle
                             id="gray-circle"
-                            className={pomodoroStyles.circle}
                             r="250"
                             cx="300"
                             cy="300"
@@ -74,11 +73,11 @@ const Pomodoro = () => {
                             cx="300"
                             cy="300"
                             fill="transparent"
-                            stroke="green"
+                            /*stroke="green"*/
                             stroke-opacity="0.6"
                             stroke-width="10"
                             strokeDasharray={1571}
-                            strokeDashoffset={20}
+                            strokeDashoffset={0}
                             transform="translate(0 0), rotate(270 300 300)"
                         />
                         <text className="text-8xl" x="300" y="400" text-anchor="middle" fill="black">{`${hours}:${minutes}:${seconds}`}</text>
