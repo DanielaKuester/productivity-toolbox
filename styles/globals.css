@@ -1,5 +1,5 @@
 :root {
-  --myseconds: 60s;
+  --myseconds: 30s;
 }
 
 @tailwind base;

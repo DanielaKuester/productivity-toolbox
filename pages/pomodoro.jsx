@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(24 * 60 * 60);
+    const [myTime, setMyTime] = useState(3 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -29,6 +29,15 @@ const Pomodoro = () => {
     const countDown = (timeInSeconds) => {
         setMyTime(timeInSeconds - 1);
     }
+
+    useEffect(() => {
+        // Accessing CSS variables
+        const myAnimationTime = getComputedStyle(document.documentElement).getPropertyValue('--myseconds');
+        console.log(myAnimationTime);
+    
+        // Updating CSS variables
+        document.documentElement.style.setProperty('--myseconds', `${myTime}s`);
+    }, []);
 
     /*
      * The setTimeout function takes 2 or more arguments.
@@ -80,7 +89,7 @@ const Pomodoro = () => {
                             strokeDashoffset={0}
                             transform="translate(0 0), rotate(270 300 300)"
                         />
-                        <text className="text-8xl" x="300" y="400" text-anchor="middle" fill="black">{`${hours}:${minutes}:${seconds}`}</text>
+                        <text className="text-8xl" x="300" y="400" text-anchor="middle" fill="black">{`${minutes}:${seconds}`}</text>
                     </svg>
                 </div>
             </div>
