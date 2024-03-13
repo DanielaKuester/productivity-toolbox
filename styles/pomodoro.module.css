@@ -14,8 +14,9 @@
 }
 
 .circle {
+    /* --myseconds: 60s; */
     stroke-dasharray: 1571;
-    animation: time-flies 5s linear;
+    animation: time-flies var(--myseconds) linear;
 }
 
 @keyframes time-flies {

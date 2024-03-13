@@ -1,3 +1,7 @@
+:root {
+  --myseconds: 60s;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
