@@ -14,13 +14,12 @@
 }
 
 .circle {
-    animation: time-flies 15s;
+    stroke-dasharray: 1571;
+    animation: time-flies 5s linear;
 }
 
 @keyframes time-flies {
-    0% {
-        stroke: green;
-    } 100% {
-        stroke: red;
+    to {
+        stroke-dashoffset: 1571;
     }
 }

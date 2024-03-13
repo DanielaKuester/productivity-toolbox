@@ -73,7 +73,7 @@ const Pomodoro = () => {
                             cx="300"
                             cy="300"
                             fill="transparent"
-                            /*stroke="green"*/
+                            stroke="green"
                             stroke-opacity="0.6"
                             stroke-width="10"
                             strokeDasharray={1571}
