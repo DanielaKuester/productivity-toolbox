@@ -70,8 +70,8 @@ const Pomodoro = () => {
                             cy="300"
                             fill="transparent"
                             stroke="gray"
-                            stroke-width="10"
-                            stroke-opacity="0.2"
+                            strokeWidth="10"
+                            strokeOpacity="0.2"
                             strokeDasharray={1571}
                             strokeDashoffset={0}
                         />
@@ -83,13 +83,13 @@ const Pomodoro = () => {
                             cy="300"
                             fill="transparent"
                             stroke="green"
-                            stroke-opacity="0.6"
-                            stroke-width="10"
+                            strokeOpacity="0.6"
+                            strokeWidth="10"
                             strokeDasharray={1571}
                             strokeDashoffset={0}
                             transform="translate(0 0), rotate(270 300 300)"
                         />
-                        <text className="text-8xl" x="300" y="400" text-anchor="middle" fill="black">{`${minutes}:${seconds}`}</text>
+                        <text className="text-8xl" x="300" y="400" textAnchor="middle" fill="black">{`${minutes}:${seconds}`}</text>
                     </svg>
                 </div>
             </div>
