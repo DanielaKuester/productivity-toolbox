@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(3 * 60);
+    const [myTime, setMyTime] = useState(2 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -25,6 +25,8 @@ const Pomodoro = () => {
     const hours = allHours % 24;
     // const days = allDays % 365;
     // const years = allYears;
+
+    // const delayCompensation = allMinutes * 4.5;
 
     const countDown = (timeInSeconds) => {
         setMyTime(timeInSeconds - 1);
@@ -58,8 +60,6 @@ const Pomodoro = () => {
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
-                {/* <p className="text-8xl text-center">{`${hours}:${minutes}:${seconds}`}</p> */}
-                {/* <p className={`${pomodoroStyles.paragraph} ${pomodoroStyles.mytext} text-center mt-10`}>This is some text to test this paragraph.</p> */}
                 <div className="">
                     <svg className="bg-blue-300 mx-auto mt-10" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
                         {/* The circumference of a circle is 2π*r, so in this case it is 2π * 250 = ~1571 */}
