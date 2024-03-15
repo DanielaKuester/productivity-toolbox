@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(4 * 60);
+    const [myTime, setMyTime] = useState(25 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -26,8 +26,6 @@ const Pomodoro = () => {
     // const days = allDays % 365;
     // const years = allYears;
 
-    // const delayCompensation = allMinutes * 4.5;
-
     const countDown = (timeInSeconds) => {
         setMyTime(timeInSeconds - 1);
     }
@@ -49,7 +47,9 @@ const Pomodoro = () => {
         console.log(myAnimationTime);
     
         // Updating CSS variables
-        document.documentElement.style.setProperty('--myseconds', `${startTime}s`);
+        // I added a time (minutes * 0.35) that scales with bigger timer minutes to balance an unwanted delay
+        document.documentElement.style.setProperty('--myseconds', `${startTime + (minutes * 0.35)}s`);
+        console.log(startTime);
     }, []);
 
     return(
@@ -58,7 +58,7 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="min-h-screen bg-blue-300">
+            <div className="min-h-screen bg-blue-900">
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
