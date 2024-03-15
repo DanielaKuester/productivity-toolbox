@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(2 * 60);
+    const [myTime, setMyTime] = useState(4 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -32,23 +32,25 @@ const Pomodoro = () => {
         setMyTime(timeInSeconds - 1);
     }
 
+    /*
+    * The setTimeout function takes 2 or more arguments.
+    * Argument 1: The callback function that you want to call in the setTimeout function.
+    * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
+    * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
+    * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
+    */
+    setTimeout(countDown, 1000, myTime);
+
     useEffect(() => {
+        const startTime = myTime;
+
         // Accessing CSS variables
         const myAnimationTime = getComputedStyle(document.documentElement).getPropertyValue('--myseconds');
         console.log(myAnimationTime);
     
         // Updating CSS variables
-        document.documentElement.style.setProperty('--myseconds', `${myTime}s`);
+        document.documentElement.style.setProperty('--myseconds', `${startTime}s`);
     }, []);
-
-    /*
-     * The setTimeout function takes 2 or more arguments.
-     * Argument 1: The callback function that you want to call in the setTimeout function.
-     * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
-     * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
-     * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
-     */
-    setTimeout(countDown, 1000, myTime);
 
     return(
         <>
@@ -56,12 +58,12 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="min-h-screen bg-purple-600">
+            <div className="min-h-screen bg-blue-300">
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
-                <div className="">
-                    <svg className="bg-blue-300 mx-auto mt-10" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
+                <div className="flex flex-col items-center">
+                    <svg className="bg-green-200 mx-auto" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
                         {/* The circumference of a circle is 2π*r, so in this case it is 2π * 250 = ~1571 */}
                         <circle
                             id="gray-circle"
@@ -91,6 +93,12 @@ const Pomodoro = () => {
                         />
                         <text className="text-8xl" x="300" y="400" textAnchor="middle" fill="black">{`${minutes}:${seconds}`}</text>
                     </svg>
+                    <div className="flex flex-col items-center">
+                        <button
+                            className="-mt-40 text-4xl object-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        >Start
+                        </button>
+                    </div>
                 </div>
             </div>
         </>
