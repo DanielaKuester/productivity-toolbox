@@ -50,6 +50,7 @@ const Pomodoro = () => {
         // I added a time (minutes * 0.35) that scales with bigger timer minutes to balance an unwanted delay
         document.documentElement.style.setProperty('--myseconds', `${startTime + (minutes * 0.35)}s`);
         console.log(startTime);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return(
@@ -58,7 +59,7 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="min-h-screen bg-blue-900">
+            <div className="min-h-screen bg-blue-300">
                 <h1 className="text-4xl p-8 font-bold text-black text-center">
                     Pomodoro Timer
                 </h1>
