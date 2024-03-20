@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(2 * 60);
+    const [myTime, setMyTime] = useState(25 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -30,14 +30,16 @@ const Pomodoro = () => {
         setMyTime(timeInSeconds - 1);
     }
 
-    /*
-    * The setTimeout function takes 2 or more arguments.
-    * Argument 1: The callback function that you want to call in the setTimeout function.
-    * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
-    * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
-    * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
-    */
-    setTimeout(countDown, 1000, myTime);
+    useEffect(() => {
+        /*
+        * The setTimeout function takes 2 or more arguments.
+        * Argument 1: The callback function that you want to call in the setTimeout function.
+        * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
+        * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
+        * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
+        */
+        setTimeout(countDown, 1000, myTime);
+    }, [myTime])
 
     useEffect(() => {
         const startTime = myTime;
