@@ -59,12 +59,12 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="min-h-screen bg-blue-300">
-                <h1 className="text-4xl p-8 font-bold text-black text-center">
+            <div className="bg-[url('/tulips.jpg')] bg-cover bg-no-repeat h-screen">
+                <h1 className="text-4xl p-8 font-bold text-white text-center">
                     Pomodoro Timer
                 </h1>
                 <div className="flex flex-col items-center">
-                    <svg className="bg-green-200 mx-auto" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="bg-transparent mx-auto" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
                         {/* The circumference of a circle is 2π*r, so in this case it is 2π * 250 = ~1571 */}
                         <circle
                             id="gray-circle"
@@ -72,9 +72,9 @@ const Pomodoro = () => {
                             cx="300"
                             cy="300"
                             fill="transparent"
-                            stroke="gray"
+                            stroke="white"
                             strokeWidth="10"
-                            strokeOpacity="0.2"
+                            strokeOpacity="0.6"
                             strokeDasharray={1571}
                             strokeDashoffset={0}
                         />
@@ -92,7 +92,7 @@ const Pomodoro = () => {
                             strokeDashoffset={0}
                             transform="translate(0 0), rotate(270 300 300)"
                         />
-                        <text className="text-8xl" x="300" y="400" textAnchor="middle" fill="black">{`${minutes}:${seconds}`}</text>
+                        <text className="text-[120px]" x="300" y="400" textAnchor="middle" fill="white">{`${minutes}:${seconds}`}</text>
                     </svg>
                     <div className="flex flex-col items-center">
                         <button
