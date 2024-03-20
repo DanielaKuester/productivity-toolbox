@@ -53,13 +53,17 @@ const Pomodoro = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    const startTimer = () => {
+        console.log("You're a clever coder! :)")
+    }
+
     return(
         <>
             <title>Productivity Toolbox - Pomodoro</title>
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="bg-[url('/bridge.jpg')] bg-cover bg-no-repeat h-screen bg-center">
+            <div className="bg-[url('/beach-top.jpg')] bg-cover bg-no-repeat h-screen bg-center">
                 <h1 className="text-4xl p-8 font-bold text-white text-center">
                     Pomodoro Timer
                 </h1>
@@ -97,6 +101,7 @@ const Pomodoro = () => {
                     <div className="flex flex-col items-center">
                         <button
                             className="-mt-40 text-4xl object-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            onClick={startTimer}
                         >Start
                         </button>
                     </div>
