@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
-    const [myTime, setMyTime] = useState(25 * 60);
+    const [myTime, setMyTime] = useState(2 * 60);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -59,7 +59,7 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="bg-[url('/tulips.jpg')] bg-cover bg-no-repeat h-screen bg-center">
+            <div className="bg-[url('/bridge.jpg')] bg-cover bg-no-repeat h-screen bg-center">
                 <h1 className="text-4xl p-8 font-bold text-white text-center">
                     Pomodoro Timer
                 </h1>
