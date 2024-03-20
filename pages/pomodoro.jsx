@@ -59,40 +59,40 @@ const Pomodoro = () => {
             <meta name="description" content="The pomodoro timer balances work on the current task with breaks in between." />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link rel="icon" href="/favicon.ico" />
-            <div className="bg-[url('/crocuses.jpg')] bg-cover bg-no-repeat h-screen bg-center">
+            <div className="bg-[url('/tulips.jpg')] bg-cover bg-no-repeat h-screen bg-center">
                 <h1 className="text-4xl p-8 font-bold text-white text-center">
                     Pomodoro Timer
                 </h1>
                 <div className="flex flex-col items-center">
-                    <svg className="bg-transparent mx-auto" height="600" width="600" xmlns="http://www.w3.org/2000/svg">
+                    <svg className="bg-transparent mx-auto" height="700" width="700" xmlns="http://www.w3.org/2000/svg">
                         {/* The circumference of a circle is 2π*r, so in this case it is 2π * 250 = ~1571 */}
                         <circle
                             id="gray-circle"
-                            r="250"
-                            cx="300"
-                            cy="300"
+                            r="300"
+                            cx="350"
+                            cy="350"
                             fill="transparent"
                             stroke="white"
-                            strokeWidth="10"
-                            strokeOpacity="0.6"
-                            strokeDasharray={1571}
+                            strokeWidth="12"
+                            strokeOpacity="0.5"
+                            strokeDasharray={1885}
                             strokeDashoffset={0}
                         />
                         <circle
                             id="green-circle"
-                            className={pomodoroStyles.circle}
-                            r="250"
-                            cx="300"
-                            cy="300"
+                            className={`${pomodoroStyles.circle}`}
+                            r="300"
+                            cx="350"
+                            cy="350"
                             fill="transparent"
-                            stroke="green"
-                            strokeOpacity="0.6"
-                            strokeWidth="10"
-                            strokeDasharray={1571}
+                            stroke="white"
+                            strokeOpacity="1"
+                            strokeWidth="12"
+                            strokeDasharray={1885}
                             strokeDashoffset={0}
-                            transform="translate(0 0), rotate(270 300 300)"
+                            transform="translate(0 0), rotate(270 350 350)"
                         />
-                        <text className="text-[120px]" x="300" y="400" textAnchor="middle" fill="white">{`${minutes}:${seconds}`}</text>
+                        <text className="text-[120px]" x="350" y="470" textAnchor="middle" fill="white">{`${minutes}:${seconds}`}</text>
                     </svg>
                     <div className="flex flex-col items-center">
                         <button
