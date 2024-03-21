@@ -3,6 +3,7 @@ import pomodoroStyles from "../styles/pomodoro.module.css"
 
 const Pomodoro = () => {
     const [myTime, setMyTime] = useState(25 * 60);
+    const [isRunning, setIsRunning] = useState(false);
 
     /*
      * 60 seconds form one minute, so the total number of minutes is all seconds divided by 60.
@@ -31,15 +32,20 @@ const Pomodoro = () => {
     }
 
     useEffect(() => {
-        /*
-        * The setTimeout function takes 2 or more arguments.
-        * Argument 1: The callback function that you want to call in the setTimeout function.
-        * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
-        * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
-        * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
-        */
-        setTimeout(countDown, 1000, myTime);
-    }, [myTime])
+        if (isRunning === true) {
+            let timer;
+            /*
+            * The setTimeout function takes 2 or more arguments.
+            * Argument 1: The callback function that you want to call in the setTimeout function.
+            * Argument 2: The timespan (in milliseconds) after which the setTimeout function should run.
+            * Arguments 3, 4, 5 ... (up to n): A parameter that you can give as an argument to the callback function that you call.
+            * In this case, myTime is given as an argument to the countDown function. The function is called as countdown(myTime).
+            */
+            timer = setTimeout(countDown, 1000, myTime);
+        } else {
+            // Do nothing.
+        }
+    }, [isRunning, myTime])
 
     useEffect(() => {
         const startTime = myTime;
@@ -56,7 +62,7 @@ const Pomodoro = () => {
     }, []);
 
     const startTimer = () => {
-        console.log("You're a clever coder! :)")
+        setIsRunning(true);
     }
 
     return(
