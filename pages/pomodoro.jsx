@@ -48,18 +48,23 @@ const Pomodoro = () => {
     }, [isRunning, myTime])
 
     useEffect(() => {
-        const startTime = myTime;
+        if (isRunning === true) {
+            const startTime = myTime;
+            const delayCompensation = (minutes * 0.35) + 2;
 
-        // Accessing CSS variables
-        const myAnimationTime = getComputedStyle(document.documentElement).getPropertyValue('--myseconds');
-        console.log(myAnimationTime);
-    
-        // Updating CSS variables
-        // I added a time (minutes * 0.35) that scales with bigger timer minutes to balance an unwanted delay
-        document.documentElement.style.setProperty('--myseconds', `${startTime + (minutes * 0.35)}s`);
-        console.log(startTime);
+            // Accessing CSS variables
+            let myAnimationTime = getComputedStyle(document.documentElement).getPropertyValue('--myseconds');
+        
+            // Updating CSS variables
+            // I added a time (minutes * 0.35) that scales with bigger timer minutes to balance an unwanted delay
+            document.documentElement.style.setProperty('--myseconds', `${startTime + delayCompensation}s`);
+            console.log(startTime);
+            console.log(startTime + delayCompensation);
+        } else {
+            document.documentElement.style.setProperty('--myseconds', '0s');
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isRunning]);
 
     const startTimer = () => {
         setIsRunning(true);
@@ -87,7 +92,7 @@ const Pomodoro = () => {
                             stroke="white"
                             strokeWidth="12"
                             strokeOpacity="0.5"
-                            strokeDasharray={1885}
+                            strokeDasharray={1920}
                             strokeDashoffset={0}
                         />
                         <circle
@@ -100,8 +105,6 @@ const Pomodoro = () => {
                             stroke="white"
                             strokeOpacity="1"
                             strokeWidth="12"
-                            strokeDasharray={1885}
-                            strokeDashoffset={0}
                             transform="translate(0 0), rotate(270 350 350)"
                         />
                         <text className="text-[120px]" x="350" y="470" textAnchor="middle" fill="white">{`${minutes}:${seconds}`}</text>
